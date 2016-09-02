@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+  {% include head.html %}
+  <body>
+    <header>{% include header.html %}</header>
+    {% include sideNav.html %}
+    <main>
+    <div class="page-content">
+      <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+          <br><br>
+        {{ content }}
+          <br><br>
+      </div>
+    </div>
+    </main>
+  </div>
+    <!-- {% include footer.html %} -->
+  </body>
+  {% include scripts.html %}
+</html>

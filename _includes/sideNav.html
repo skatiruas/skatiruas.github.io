@@ -1,22 +1,34 @@
 <ul id="slide-out" class="side-nav fixed">
   <li>
-    <img class="nav_img" src="/assets/nav/professional.jpg">
+    {% if layout.nav_type == 'personal' %}
+      <img class="nav_img" src="{{site.data.images.personal}}">
+    {% else %}
+      <img class="nav_img" src="{{site.data.images.professional}}">
+    {% endif %}
   </li>
   <li class="nav_switch_holder">
     <div class="switch row nav_img_changer">
       <label>
         <div class="col s4 right-align">Personal</div>
-        <div class="col s4"><input checked type="checkbox"><span class="lever"></span></div>
+        <div class="col s4">
+        {% if layout.nav_type == 'personal' %}
+          <input type="checkbox">
+        {% else %}
+          <input checked type="checkbox">
+        {% endif %}
+        <span class="lever"></span></div>
         <div class="col s4 left-align">Professional</div>
       </label>
     </div>
   </li>
   <ul id='nav_buttons'>
-  <li>
-    <a class="waves-effect waves-light blue btn"><i class="material-icons left">person</i>About</a>
-  </li>
-  <li>
-    <a class="waves-effect waves-light blue btn"><i class="material-icons left">mail</i>Contact</a>
-  </li>
+    {% assign sorted_pages = site.pages | sort:"order" %}
+    {% for page in sorted_pages %}
+      {% if page.title %}
+        <li>
+          <a class="waves-effect waves-light blue btn {{page.btn_class}}" href="{{ page.url | prepend:site.baseurl }}"><i class="material-icons left">{{page.icon}}</i>{{page.title}}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
   </ul>
 </ul>

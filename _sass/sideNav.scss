@@ -7,3 +7,19 @@ header, main, footer {
     padding-left: 0;
   }
 }
+
+.nav_switch_holder{
+  text-align:center;
+  .switch{
+  }
+}
+
+.nav_img{
+  width: 100%;
+}
+
+#nav_buttons{
+  li{
+    opacity: 0
+  }
+}

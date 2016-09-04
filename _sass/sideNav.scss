@@ -23,3 +23,10 @@ header, main, footer {
     opacity: 0
   }
 }
+
+.nav_btn .disabled {
+  -webkit-transition: all 1.5s ease;
+  -moz-transition: all 1.5s ease;
+  -o-transition: all 1.5s ease;
+  transition: all 1.5s ease;
+}

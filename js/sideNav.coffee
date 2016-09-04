@@ -14,29 +14,29 @@ toggle_nav_img = (e, time=300)->
     )
 
 toggle_disabled = (e)-> e.prop('disabled',!e.prop('disabled'))
-toggle_list_items = (e)->
+toggle_list_items = (e, value=0)->
   if e.prop('checked')
-    $('.btn_personal').closest('li').hide()
-    $('.btn_professional').closest('li').show().css('opacity':0)
+    $('.nav_btn.btn_personal').closest('li').hide()
+    $('.nav_btn.btn_professional').closest('li').show().css(opacity: value)
   else
-    $('.btn_professional').closest('li').hide()
-    $('.btn_personal').closest('li').show().css('opacity':0)
-
+    $('.nav_btn.btn_professional').closest('li').hide()
+    $('.nav_btn.btn_personal').closest('li').show().css(opacity: value)  
 
 $ ->
   p_switch = $('.switch.nav_img_changer input')
-  toggle_list_items(p_switch) 
-
-  Materialize.showStaggeredList($('ul #nav_buttons'))
+  $('.nav_btn.disabled').on 'click', (e)-> e.preventDefault()
+  toggle_list_items(p_switch, 1)
 
   p_switch.on 'change', ()->
     it = $(@)
-    buttons = it.closest('#slide-out').find('#nav_buttons')
+    list = $('.nav_btn').closest('ul')
     toggle_disabled(it)
     $('.switch.nav_img_changer input').prop('checked', it.prop('checked'))
     toggle_nav_img(it)
     $('ul #nav_buttons li').fadeOut().promise().done(
       ->toggle_list_items(it).promise().done(
-        ->Materialize.showStaggeredList(buttons)
-      ).promise().done(->toggle_disabled(it))
+        ->
+          Materialize.showStaggeredList(list)  
+          setTimeout(toggle_disabled,800,it)
+      )
     )

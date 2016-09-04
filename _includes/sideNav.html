@@ -23,12 +23,18 @@
   </li>
   <ul id='nav_buttons'>
     {% assign sorted_pages = site.pages | sort:"order" %}
-    {% for page in sorted_pages %}
-      {% if page.title %}
+    {% for p in sorted_pages %}
+      {% if p.title %}
         <li>
-          <a class="waves-effect waves-light blue btn {{page.btn_class}}" href="{{ page.url | prepend:site.baseurl }}"><i class="material-icons left">{{page.icon}}</i>{{page.title}}</a>
+          {% if page.url == p.url %}
+          <a class="waves-effect waves-light blue btn nav_btn disabled {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+          {% else %}
+          <a class="waves-effect waves-light blue btn nav_btn {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+          {% endif %}
+
         </li>
       {% endif %}
     {% endfor %}
   </ul>
 </ul>
+<script src="/js/sideNav.js"></script>

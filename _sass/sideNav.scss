@@ -35,6 +35,47 @@ header, main, footer {
   transition: all 1.5s ease;
 }
 
-.lang_button{
-  font-weight:bold;
+/*NavBar Related*/
+
+nav {
+  height: 30px;
+  line-height: 30px;
+
+  i, [class^="mdi-"], [class*="mdi-"], i.material-icons {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .button-collapse i {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .brand-logo { 
+    font-size: 1.6rem; 
+  }
+
+  @media only screen and (min-width: 601px){
+    height: 30px;
+    line-height: 30px;
+    .nav-wrapper i, a.button-collapse, a.button-collapse i {
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .lang_button {
+    font-weight:bold;
+    color: black;
+  }
+
+  #lang_dropdown li{
+    min-height: 30px;
+    a{
+      font-weight:bold;
+      height: 30px;
+      line-height: 10px;
+      padding-bottom: 10px;
+    }
+  }
 }

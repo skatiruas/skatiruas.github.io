@@ -14,7 +14,9 @@ language: en
         <div class="container">
           <br><br>
           {% if page.construction or layout.construction %}
-            <div class="construction">
+            <div class="construction row">
+              <div class="col s2"></div>
+              <div class="col s8">
               <div class="element-animation row">
                 <div class="col s12 center-align">
                   <i class="large material-icons">warning</i>
@@ -22,6 +24,8 @@ language: en
                 <div class="col s12 center-align">
                   <h5>Under Construction</h5>
                 </div>
+              </div>
+              <div class="col s2"></div>
               </div>     
             </div>
           {% else %}

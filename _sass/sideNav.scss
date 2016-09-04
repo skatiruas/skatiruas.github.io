@@ -61,6 +61,12 @@ header, main, footer {
 /*NavBar Related*/
 
 nav {
+  &.nav_personal, &.nav_professional {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
   i{
     color: black !important;
   }

@@ -41,3 +41,6 @@ $ ->
           setTimeout(toggle_disabled,600,values.self)
       )
     )
+  $('#lang_dropdown a').on 'click', (e)->
+    e.preventDefault()
+    $('.lang_button').html($(@).html())

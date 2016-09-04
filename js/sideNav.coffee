@@ -26,12 +26,17 @@ toggle_list_items = (e, value=0)->
 $ ->
   values = selected($('.switch.nav_img_changer input'))
   $('.nav_btn.disabled').on 'click', (e)-> e.preventDefault()
-  toggle_list_items(values.name, 1)
+  if document.referrer != ''
+    toggle_list_items(values.name, 1)
+  else
+    toggle_list_items(values.name)
+    toggle_disabled(values.self)
+    setTimeout(Materialize.showStaggeredList,200,$("#nav_buttons_#{values.name}"))
+    setTimeout(toggle_disabled,600,values.self)
 
   values.self.on 'change', ()->
     values = selected($(@))
     list = $("#nav_buttons_#{values.name}")
-    console.log list
     toggle_disabled(values.self)
     toggle_nav_img(values.img)
     $('ul #nav_buttons li').fadeOut().promise().done(

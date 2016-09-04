@@ -9,6 +9,7 @@ header, main, footer {
 }
 
 .nav_switch_holder{
+  margin-top:-1em;
   text-align:center;
   .switch{
   }
@@ -20,12 +21,26 @@ header, main, footer {
 
 .nav_img_changer{
   margin-bottom:0;
+  label{
+    font-weight:bold;
+    color: white;
+    .lever {
+      background-color: $tertiary-color-light;
+      &:after{
+        background-color: $tertiary-color;
+      }  
+    }
+  }
 }
 
 #nav_buttons{
   li{
     opacity: 0
   }
+}
+
+#slide-out{
+  background-color: black !important;
 }
 
 .nav_btn .disabled {
@@ -35,9 +50,29 @@ header, main, footer {
   transition: all 1.5s ease;
 }
 
+.btn_personal{
+  @extend .lime;
+  @extend .accent-3;
+  &:hover{
+    @extend .accent-2;
+  }
+}
+
 /*NavBar Related*/
 
 nav {
+  i{
+    color: black !important;
+  }
+  &.nav_personal{
+    background-color: $tertiary-color !important;
+    #lang_dropdown li{
+      a{
+        background-color: $tertiary-color !important;
+        color: black !important;
+      }
+    }
+  }
   height: 30px;
   line-height: 30px;
 
@@ -76,6 +111,8 @@ nav {
       height: 30px;
       line-height: 10px;
       padding-bottom: 10px;
+      background-color: $secondary-color !important;
+      color: black !important;
     }
   }
 }

@@ -6,7 +6,7 @@ selected = (e, name=false)->
   else
     {self: e, name: 'personal', img: "{{site.data.images.personal}}" }
 
-toggle_nav_img = (new_img, time=300)->
+toggle_nav_img = (new_img, time=500)->
   img = $('.nav_img')
   img.animate({opacity: 0}, time, 
     ()->

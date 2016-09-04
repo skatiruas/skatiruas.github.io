@@ -1,6 +1,14 @@
 <footer class="page-footer black">
   <div class="footer-copyright">
     <div class="container">
+    <span>© 2016 Tiago Ruas</span>
+    <div class="grey-text text-lighten-4 right">
+      {% for link in site.data.footer %}
+        <a href="{{link.href}}" target="_blank">
+          <img src="{{link.image}}" alt="">
+        </a>
+      {% endfor %}
+    </div>
     </div>
   </div>
 </footer>

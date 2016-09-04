@@ -1,12 +1,13 @@
 ---
 ---
-toggle_nav_img = (e, time=300)->
+selected = (e, name=false)->
+  if e.prop('checked')
+    {self: e, name: 'professional', img: "{{site.data.images.professional}}" }
+  else
+    {self: e, name: 'personal', img: "{{site.data.images.personal}}" }
+
+toggle_nav_img = (new_img, time=300)->
   img = $('.nav_img')
-  new_img = 
-    if e.prop('checked')
-      "{{site.data.images.professional}}"
-    else
-      "{{site.data.images.personal}}"
   img.animate({opacity: 0}, time, 
     ()->
       img.attr('src',new_img)
@@ -15,28 +16,28 @@ toggle_nav_img = (e, time=300)->
 
 toggle_disabled = (e)-> e.prop('disabled',!e.prop('disabled'))
 toggle_list_items = (e, value=0)->
-  if e.prop('checked')
-    $('.nav_btn.btn_personal').closest('li').hide()
-    $('.nav_btn.btn_professional').closest('li').show().css(opacity: value)
+  if e == 'personal'
+    $('#nav_buttons_professional li').hide()
+    $('#nav_buttons_personal li').show().css(opacity: value)
   else
-    $('.nav_btn.btn_professional').closest('li').hide()
-    $('.nav_btn.btn_personal').closest('li').show().css(opacity: value)  
+    $('#nav_buttons_personal li').hide()
+    $('#nav_buttons_professional li').show().css(opacity: value)
 
 $ ->
-  p_switch = $('.switch.nav_img_changer input')
+  values = selected($('.switch.nav_img_changer input'))
   $('.nav_btn.disabled').on 'click', (e)-> e.preventDefault()
-  toggle_list_items(p_switch, 1)
+  toggle_list_items(values.name, 1)
 
-  p_switch.on 'change', ()->
-    it = $(@)
-    list = $('.nav_btn').closest('ul')
-    toggle_disabled(it)
-    $('.switch.nav_img_changer input').prop('checked', it.prop('checked'))
-    toggle_nav_img(it)
+  values.self.on 'change', ()->
+    values = selected($(@))
+    list = $("#nav_buttons_#{values.name}")
+    console.log list
+    toggle_disabled(values.self)
+    toggle_nav_img(values.img)
     $('ul #nav_buttons li').fadeOut().promise().done(
-      ->toggle_list_items(it).promise().done(
+      ->toggle_list_items(values.name).promise().done(
         ->
           Materialize.showStaggeredList(list)  
-          setTimeout(toggle_disabled,800,it)
+          setTimeout(toggle_disabled,600,values.self)
       )
     )

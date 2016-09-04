@@ -21,20 +21,25 @@
       </label>
     </div>
   </li>
-  <ul id='nav_buttons'>
-    {% assign sorted_pages = site.pages | sort:"order" %}
-    {% for p in sorted_pages %}
-      {% if p.title %}
-        <li>
-          {% if page.url == p.url %}
-          <a class="waves-effect waves-light blue btn nav_btn disabled {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
-          {% else %}
-          <a class="waves-effect waves-light blue btn nav_btn {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
-          {% endif %}
+  <li id="nav_buttons">
+    {% assign sorted_pages = site.pages | where_exp:"item", "item.title" | group_by: 'layout' %}
+    {% for l in sorted_pages %}
+      {% assign items = l.items | sort: 'order' %}
+      <ul id='nav_buttons_{{l.name}}'>
+      {% for p in items %}
+        {% if p.title %}
+          <li>
+            {% if page.url == p.url %}
+            <a class="waves-effect waves-light blue btn nav_btn disabled {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+            {% else %}
+            <a class="waves-effect waves-light blue btn nav_btn {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+            {% endif %}
 
-        </li>
-      {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
     {% endfor %}
-  </ul>
+  </li>
 </ul>
 <script src="/js/sideNav.js"></script>

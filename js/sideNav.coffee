@@ -16,6 +16,11 @@ change_nav_img = (new_img, time=500)->
   )
 
 toggle_disabled = (e)-> e.prop('disabled',!e.prop('disabled'))
+
+select_button = (b)-> 
+  $('#nav_buttons a.disabled').removeClass('disabled')
+  b.addClass('disabled')
+
 toggle_list_items = (e, value=0)->
   if e == 'personal'
     $('#nav_buttons_professional li').hide()
@@ -30,11 +35,30 @@ toggle_nav_color = ->
     e.removeClass('nav_personal').addClass('nav_professional')
   else
     e.removeClass('nav_professional').addClass('nav_personal')
+execute_loaded_scripts = (element)->
+  $(element).find('script').each (i, e)->
+    $.ajax
+      url: $(e).attr('src'),
+      dataType: "script",
+      cache: true,
+      success: (data)-> eval(data)
+
 go_to = (where)->
-  window.location.href = where
+  $.ajax
+    url: where,
+    method: 'GET',
+    cache: true,
+    success: (data)->
+      history.pushState(null, null, where)
+      loaded = $(data)
+      $('.page-content').html(loaded.find('.page-content').html())
+      $('.page-content').fadeIn()
+      $('.brand-logo').html(loaded.find('.brand-logo').html())
+      $('.brand-logo').fadeIn()
+      execute_loaded_scripts('.page-content')
 
 $ ->
-  $('nav i').hide().promise().done(->$('nav i').fadeIn())
+  $('.brand-logo').hide().promise().done(->$('.brand-logo').fadeIn())
   $('.page-content').hide().promise().done(->$('.page-content').fadeIn())
   values = selected($('.switch.nav_img_changer input'))
 
@@ -54,7 +78,9 @@ $ ->
     list_home = list.find('a:first')
 
     $('.page-content').fadeOut()
-    $('nav i').fadeOut()
+    $('.brand-logo').fadeOut()
+
+    setTimeout(go_to,600,list_home.attr('href'))
 
     $('ul #nav_buttons li').fadeOut().promise().done(
       ->toggle_list_items(values.name)
@@ -62,14 +88,10 @@ $ ->
 
     change_nav_img(values.img).promise().done(
       ->
-        list_home.addClass('disabled')
+        select_button(list_home)
         Materialize.showStaggeredList(list)
         setTimeout(toggle_disabled,600,values.self)
-        if $('a[data-activates=slide-out]:visible').length > 0
-          setTimeout($('#slide-out').sideNav,1000,'hide')
-          setTimeout(go_to,1500,list_home.attr('href'))
-        else
-          setTimeout(go_to,800,list_home.attr('href'))
+        setTimeout($('#slide-out').sideNav,1000,'hide') if $('a[data-activates=slide-out]:visible').length > 0
     )
 
   $('#lang_dropdown a').on 'click', (e)->
@@ -82,8 +104,9 @@ $ ->
       if $(@).hasClass('disabled')
         $('#slide-out').sideNav('hide')
       else
-        $('nav i').fadeOut()
+        select_button($(@))
         href = $(@).attr('href')
+        $('.brand-logo').fadeOut()
         $('.page-content').fadeOut().promise().done(
           ->
             if $('a[data-activates=slide-out]:visible').length > 0

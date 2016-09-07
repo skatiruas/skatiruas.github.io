@@ -6,9 +6,10 @@ language: en
 <html lang="en">
   {% include head.html %}
   {% include scripts.html %}
+  {% include sideNav.html %}
   <body>
-    <header>{% include header.html %}</header>
     <main>
+    {% include header.html %}
     <div class="page-content">
       <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -34,7 +35,6 @@ language: en
           <br><br>
         </div>
       </div>
-    </div>
     </main>
     {% include footer.html %}
   </body>

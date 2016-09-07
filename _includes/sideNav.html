@@ -2,8 +2,10 @@
   <li>
     {% if layout.nav_type == 'personal' %}
       <img class="nav_img" src="{{site.data.images.personal}}">
+      <img class="nav_img_hidden" src="{{site.data.images.professional}}">
     {% else %}
       <img class="nav_img" src="{{site.data.images.professional}}">
+      <img class="nav_img_hidden" src="{{site.data.images.personal}}">
     {% endif %}
   </li>
   <li class="nav_switch_holder">

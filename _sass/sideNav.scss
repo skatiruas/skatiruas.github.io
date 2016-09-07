@@ -15,7 +15,11 @@ header, main, footer {
   }
 }
 
-.nav_img{
+.nav_img_hidden{
+  display: none;
+}
+
+.nav_img, .nav_img_hidden {
   width: 100%;
 }
 

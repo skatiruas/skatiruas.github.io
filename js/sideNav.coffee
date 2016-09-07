@@ -6,13 +6,14 @@ selected = (e, name=false)->
   else
     {self: e, name: 'personal', img: "{{site.data.images.personal}}" }
 
-change_nav_img = (new_img, time=500)->
+change_nav_img = (time=500)->
   img = $('.nav_img')
+  new_img = $('.nav_img_hidden')
   img.animate({opacity: 0}, time, 
     ()->
-      $("<img class='nav_img' src='#{new_img}' style='opacity:0;'>").load ->
-        img.replaceWith($(@))
-        $('.nav_img').animate({opacity: 1}, time)
+      new_img.css({opacity: 0}).removeClass('nav_img_hidden').addClass('nav_img')
+      img.removeClass('nav_img').addClass('nav_img_hidden')
+      new_img.animate({opacity: 1}, time)
   )
 
 toggle_disabled = (e)-> e.prop('disabled',!e.prop('disabled'))
@@ -82,13 +83,11 @@ $ ->
 
     setTimeout(go_to,600,list_home.attr('href'))
 
-    $('ul #nav_buttons li').fadeOut().promise().done(
-      ->toggle_list_items(values.name)
-    )
+    change_nav_img()
 
-    change_nav_img(values.img).promise().done(
+    $('ul #nav_buttons li').fadeOut().promise().done(
       ->
-        select_button(list_home)
+        toggle_list_items(values.name).promise().done(->select_button(list_home))
         Materialize.showStaggeredList(list)
         setTimeout(toggle_disabled,600,values.self)
         setTimeout($('#slide-out').sideNav,1000,'hide') if $('a[data-activates=slide-out]:visible').length > 0
@@ -101,14 +100,15 @@ $ ->
   for a in $('#nav_buttons a')
     $(a).on 'click', (e)->
       e.preventDefault()
-      if $(@).hasClass('disabled')
+      btn = $(@)
+      if btn.hasClass('disabled')
         $('#slide-out').sideNav('hide')
       else
-        select_button($(@))
-        href = $(@).attr('href')
+        href = btn.attr('href')
         $('.brand-logo').fadeOut()
         $('.page-content').fadeOut().promise().done(
           ->
+            select_button(btn)
             if $('a[data-activates=slide-out]:visible').length > 0
               $('#slide-out').sideNav('hide')
               setTimeout(go_to,300,href)

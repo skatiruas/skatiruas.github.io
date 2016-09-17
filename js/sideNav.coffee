@@ -33,13 +33,6 @@ toggle_nav_color = ->
     e.removeClass('nav_personal').addClass('nav_professional')
   else
     e.removeClass('nav_professional').addClass('nav_personal')
-execute_loaded_scripts = (element)->
-  $(element).find('script').each (i, e)->
-    $.ajax
-      url: $(e).attr('src'),
-      dataType: "script",
-      cache: true,
-      success: (data)-> eval(data)
 
 verify_language = ()->
   if window.location.pathname.split('/')[1] == 'pt-br'
@@ -59,19 +52,29 @@ change_pages = (href)->
         go_to(href)
   )
 
+stripScripts = (html)->
+  div = document.createElement('div');
+  $(div).html(html)
+  scripts = $(div).find('script')
+  i = scripts.length
+  while (i--)
+    scripts[i].parentNode.removeChild(scripts[i]);
+  return [$(div).html(), scripts]
+
 go_to = (where)->
-  $.ajax
+  $.get
     url: where,
-    method: 'GET',
-    cache: true,
+    async: true,
     success: (data)->
       history.pushState(null, null, where)
       loaded = $(data)
-      $('.page-content').html(loaded.find('.page-content').html())
+      [html, scripts] = stripScripts(loaded.find('.page-content').html())
+      $('.page-content').html(html)
       $('.page-content').fadeIn()
       $('.brand-logo').html(loaded.find('.brand-logo').html())
       $('.brand-logo').fadeIn()
-      execute_loaded_scripts('.page-content')
+      for s in scripts
+        $.getScript $(s).attr('src')
 
 $ ->
   verify_language()

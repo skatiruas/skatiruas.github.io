@@ -23,7 +23,13 @@ language: en
                   <i class="large material-icons">warning</i>
                 </div>
                 <div class="col s12 center-align">
-                  <h5>Under Construction</h5>
+                  <h5>
+                    {% if layout.lang == "en" %}
+                      Under Construction
+                    {% else %}
+                      Em Construção
+                    {% endif %}         
+                  </h5>
                 </div>
               </div>
               <div class="col s2"></div>
@@ -35,6 +41,7 @@ language: en
           <br><br>
         </div>
       </div>
+    </div>
     </main>
     {% include footer.html %}
   </body>

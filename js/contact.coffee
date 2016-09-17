@@ -1,0 +1,4 @@
+---
+---
+$ ->
+  Materialize.updateTextFields()

@@ -10,8 +10,13 @@
   </li>
   <li class="nav_switch_holder">
     <div class="switch row nav_img_changer">
+      {% if layout.lang == 'en' %}
+        {% assign lang_data = site.en %}
+      {% else %}
+        {% assign lang_data = site.pt-br %}
+      {% endif %}
       <label>
-        <div class="col s4 right-align">Personal</div>
+        <div class="col s4 right-align">{{lang_data.personal}}</div>
         <div class="col s4">
         {% if layout.nav_type == 'personal' %}
           <input type="checkbox">
@@ -19,7 +24,7 @@
           <input checked type="checkbox">
         {% endif %}
         <span class="lever"></span></div>
-        <div class="col s4 left-align">Professional</div>
+        <div class="col s4 left-align">{{lang_data.professional}}</div>
       </label>
     </div>
   </li>
@@ -27,21 +32,20 @@
     {% assign sorted_pages = site.pages | where_exp:"item", "item.title" | group_by: 'layout' %}
     {% for l in sorted_pages %}
       {% assign items = l.items | sort: 'order' %}
-      <ul id='nav_buttons_{{l.name}}'>
-      {% for p in items %}
-        {% if p.title %}
-          <li>
-            {% if page.url == p.url %}
-            <a class="waves-effect waves-light btn nav_btn disabled {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
-            {% else %}
-            <a class="waves-effect waves-light btn nav_btn {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
-            {% endif %}
-
-          </li>
-        {% endif %}
-      {% endfor %}
-      </ul>
+        <ul id='nav_buttons_{{l.name}}'>
+        {% for p in items %}
+          {% if p.title %}
+            <li>
+              {% if page.url == p.url %}
+                <a class="waves-effect waves-light btn nav_btn disabled {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+              {% else %}
+                <a class="waves-effect waves-light btn nav_btn btn_{{p.layout}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
     {% endfor %}
-  </li>
+      </li>
 </ul>
 <script src="/js/sideNav.js"></script>

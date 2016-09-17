@@ -1,10 +1,11 @@
 ---
 ---
 selected = (e, name=false)->
+  language = $('.lang_button').html()
   if e.prop('checked')
-    {self: e, name: 'professional', img: "{{site.data.images.professional}}" }
+    {self: e, name: "professional_#{language}", personal: "{{site.data.images.professional}}" }
   else
-    {self: e, name: 'personal', img: "{{site.data.images.personal}}" }
+    {self: e, name: "personal_#{language}", img: "{{site.data.images.personal}}" }
 
 change_nav_img = (time=500)->
   img = $('.nav_img')
@@ -23,12 +24,8 @@ select_button = (b)->
   b.addClass('disabled')
 
 toggle_list_items = (e, value=0)->
-  if e == 'personal'
-    $('#nav_buttons_professional li').hide()
-    $('#nav_buttons_personal li').show().css(opacity: value)
-  else
-    $('#nav_buttons_personal li').hide()
-    $('#nav_buttons_professional li').show().css(opacity: value)
+  $("#nav_buttons li").hide()
+  $("#nav_buttons_#{e} li").show().css(opacity: value)
 
 toggle_nav_color = ->
   e = $('.nav_personal, .nav_professional')
@@ -43,6 +40,24 @@ execute_loaded_scripts = (element)->
       dataType: "script",
       cache: true,
       success: (data)-> eval(data)
+
+verify_language = ()->
+  if window.location.pathname.split('/')[1] == 'pt-br'
+    $('.lang_button').html('pt-br')
+  else
+    $('.lang_button').html('en')
+
+change_pages = (href)->
+  $('.brand-logo').fadeOut()
+  $('.page-content').fadeOut().promise().done(
+    ->
+      select_button($("#nav_buttons a[href='#{href}']"))
+      if $('a[data-activates=slide-out]:visible').length > 0
+        $('#slide-out').sideNav('hide')
+        setTimeout(go_to,300,href)
+      else
+        go_to(href)
+  )
 
 go_to = (where)->
   $.ajax
@@ -59,6 +74,7 @@ go_to = (where)->
       execute_loaded_scripts('.page-content')
 
 $ ->
+  verify_language()
   $('.brand-logo').hide().promise().done(->$('.brand-logo').fadeIn())
   $('.page-content').hide().promise().done(->$('.page-content').fadeIn())
   values = selected($('.switch.nav_img_changer input'))
@@ -71,6 +87,7 @@ $ ->
     setTimeout(Materialize.showStaggeredList,200,$("#nav_buttons_#{values.name}"))
     setTimeout(toggle_disabled,600,values.self)
 
+#---Personal/Professional Switch-----
   values.self.on 'change', ()->
     values = selected($(@))
     list = $("#nav_buttons_#{values.name}")
@@ -92,11 +109,30 @@ $ ->
         setTimeout(toggle_disabled,600,values.self)
         setTimeout($('#slide-out').sideNav,1000,'hide') if $('a[data-activates=slide-out]:visible').length > 0
     )
+#---Language Dropdown-----
+  for lang in $('#lang_dropdown a')
+    $(lang).on 'click', (e)->
+      e.preventDefault()
+      if $(@).html() != $('.lang_button').html()
+        $('.lang_button').html($(@).html())
+        values = selected($('.switch.nav_img_changer input'))
+        toggle_list_items(values.name, 1)
+        href = window.location.pathname
+        if href.split('/')[1] == 'pt-br'
+          personal = "{{site.en.personal}}"
+          professional = "{{site.en.professional}}"
+          href = href.replace('/pt-br/','/')
+        else
+          personal = "{{site.pt-br.personal}}"
+          professional = "{{site.pt-br.professional}}"
+          href = '/pt-br' + href
+        nav_switch = $('.switch.nav_img_changer')
+        nav_switch.find('.col:first').html(personal)
+        nav_switch.find('.col:last').html(professional)
+        change_pages(href)
+        
 
-  $('#lang_dropdown a').on 'click', (e)->
-    e.preventDefault()
-    $('.lang_button').html($(@).html())
-
+#---Nav Buttons-----
   for a in $('#nav_buttons a')
     $(a).on 'click', (e)->
       e.preventDefault()
@@ -105,13 +141,4 @@ $ ->
         $('#slide-out').sideNav('hide')
       else
         href = btn.attr('href')
-        $('.brand-logo').fadeOut()
-        $('.page-content').fadeOut().promise().done(
-          ->
-            select_button(btn)
-            if $('a[data-activates=slide-out]:visible').length > 0
-              $('#slide-out').sideNav('hide')
-              setTimeout(go_to,300,href)
-            else
-              go_to(href)
-        )
+        change_pages(href)

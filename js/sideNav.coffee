@@ -53,12 +53,12 @@ change_pages = (href)->
   )
 
 stripScripts = (html)->
-  div = document.createElement('div');
+  div = document.createElement('div')
   $(div).html(html)
   scripts = $(div).find('script')
   i = scripts.length
   while (i--)
-    scripts[i].parentNode.removeChild(scripts[i]);
+    scripts[i].parentNode.removeChild(scripts[i])
   return [$(div).html(), scripts]
 
 go_to = (where)->
@@ -70,11 +70,13 @@ go_to = (where)->
       loaded = $(data)
       [html, scripts] = stripScripts(loaded.find('.page-content').html())
       $('.page-content').html(html)
-      $('.page-content').fadeIn()
+      $('.page-content').fadeIn().promise().done(
+        ->
+          for s in scripts
+            $.getScript $(s).attr('src')
+        )
       $('.brand-logo').html(loaded.find('.brand-logo').html())
       $('.brand-logo').fadeIn()
-      for s in scripts
-        $.getScript $(s).attr('src')
 
 $ ->
   verify_language()

@@ -37,7 +37,7 @@
           {% if p.title %}
             <li>
               {% if page.url == p.url %}
-                <a class="waves-effect waves-light btn nav_btn disabled {{p.btn_class}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
+                <a class="waves-effect waves-light btn nav_btn disabled btn_{{p.layout}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
               {% else %}
                 <a class="waves-effect waves-light btn nav_btn btn_{{p.layout}}" href="{{ p.url | prepend:site.baseurl }}"><i class="material-icons left">{{p.icon}}</i>{{p.title}}</a>
               {% endif %}

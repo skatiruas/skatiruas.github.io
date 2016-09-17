@@ -23,9 +23,9 @@ header, main, footer {
   width: 100%;
 }
 
-.nav_img_changer{
+.nav_img_changer {
   margin-bottom:0;
-  label{
+  label {
     font-weight:bold;
     color: white;
     .lever {
@@ -37,13 +37,13 @@ header, main, footer {
   }
 }
 
-#nav_buttons{
+#nav_buttons {
   li{
     opacity: 0
   }
 }
 
-#slide-out{
+#slide-out {
   background-color: black !important;
 }
 
@@ -54,16 +54,18 @@ header, main, footer {
   transition: all 1.5s ease;
 }
 
-.btn_personal{
-  @extend .lime;
-  @extend .accent-3;
-  &:hover{
-    @extend .accent-2;
+.btn_personal {
+  &_pt-br, &_en {
+    @extend .lime;
+    @extend .accent-3;
+    &:hover{
+      @extend .accent-2;
+    }
   }
 }
 
 /*NavBar Related*/
-
+$nav-height: 35px;
 nav {
   &.nav_personal, &.nav_professional {
     -webkit-transition: all 0.5s ease;
@@ -74,7 +76,7 @@ nav {
   i{
     color: black !important;
   }
-  &.nav_personal{
+  &.nav_personal {
     background-color: $tertiary-color !important;
     #lang_dropdown li{
       a{
@@ -83,17 +85,17 @@ nav {
       }
     }
   }
-  height: 30px;
-  line-height: 30px;
+  height: $nav-height;
+  line-height: $nav-height;
 
   i, [class^="mdi-"], [class*="mdi-"], i.material-icons {
-    height: 30px;
-    line-height: 30px;
+    height: $nav-height;
+    line-height: $nav-height;
   }
 
   .button-collapse i {
-    height: 30px;
-    line-height: 30px;
+    height: $nav-height;
+    line-height: $nav-height;
   }
 
   .brand-logo { 
@@ -101,11 +103,11 @@ nav {
   }
 
   @media only screen and (min-width: 601px){
-    height: 30px;
-    line-height: 30px;
+    height: $nav-height;
+    line-height: $nav-height;
     .nav-wrapper i, a.button-collapse, a.button-collapse i {
-      height: 30px;
-      line-height: 30px;
+      height: $nav-height;
+      line-height: $nav-height;
     }
   }
 
@@ -115,10 +117,10 @@ nav {
   }
 
   #lang_dropdown li{
-    min-height: 30px;
+    min-height: $nav-height;
     a{
       font-weight:bold;
-      height: 30px;
+      height: $nav-height;
       line-height: 10px;
       padding-bottom: 10px;
       background-color: $secondary-color !important;

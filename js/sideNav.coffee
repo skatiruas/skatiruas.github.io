@@ -3,9 +3,9 @@
 selected = (e, name=false)->
   language = $('.lang_button').html()
   if e.prop('checked')
-    {self: e, name: "professional_#{language}", personal: "{{site.data.images.professional}}" }
+    { self: e, name: "professional_#{language}" }
   else
-    {self: e, name: "personal_#{language}", img: "{{site.data.images.personal}}" }
+    { self: e, name: "personal_#{language}" }
 
 change_nav_img = (time=500)->
   img = $('.nav_img')
@@ -33,12 +33,6 @@ toggle_nav_color = ->
     e.removeClass('nav_personal').addClass('nav_professional')
   else
     e.removeClass('nav_professional').addClass('nav_personal')
-
-verify_language = ()->
-  if window.location.pathname.split('/')[1] == 'pt-br'
-    $('.lang_button').html('pt-br')
-  else
-    $('.lang_button').html('en')
 
 change_pages = (href)->
   $('.brand-logo').fadeOut()
@@ -78,19 +72,21 @@ go_to = (where)->
       $('.brand-logo').html(loaded.find('.brand-logo').html())
       $('.brand-logo').fadeIn()
 
-$ ->
-  verify_language()
-  $('.brand-logo').hide().promise().done(->$('.brand-logo').fadeIn())
-  $('.page-content').hide().promise().done(->$('.page-content').fadeIn())
+firstTime = true
+first_time_init = ()->
+  menu_btn = $('a[data-activates=slide-out]:visible')
+  path = window.location.pathname
+  menu_btn.trigger('click') if firstTime and menu_btn.length and (path == '/' or path == '/pt-br/')
+  firstTime = false
+
+initialize = ()->
+  first_time_init()
   values = selected($('.switch.nav_img_changer input'))
 
-  if document.referrer != ''
-    toggle_list_items(values.name, 1)
-  else
-    toggle_list_items(values.name)
-    toggle_disabled(values.self)
-    setTimeout(Materialize.showStaggeredList,200,$("#nav_buttons_#{values.name}"))
-    setTimeout(toggle_disabled,600,values.self)
+  toggle_list_items(values.name)
+  toggle_disabled(values.self)
+  setTimeout(Materialize.showStaggeredList,200,$("#nav_buttons_#{values.name}"))
+  setTimeout(toggle_disabled,600,values.self)
 
 #---Personal/Professional Switch-----
   values.self.on 'change', ()->
@@ -147,3 +143,9 @@ $ ->
       else
         href = btn.attr('href')
         change_pages(href)
+
+$ ->
+  window.onpopstate = -> window.location.reload()
+
+$(window).on 'load',()->
+  $('main, footer').fadeIn().promise().done(->initialize())

@@ -39,7 +39,8 @@ header, main, footer {
 
 #nav_buttons {
   li{
-    opacity: 0
+    display: none;
+    opacity: 0;
   }
 }
 
@@ -127,4 +128,8 @@ nav {
       color: black !important;
     }
   }
+}
+
+main, footer {
+  display:none;
 }

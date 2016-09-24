@@ -1,5 +1,8 @@
+$sideNav-width: 250px;
+$nav-height: 30px;
+
 header, main, footer {
-  padding-left: 300px;
+  padding-left: $sideNav-width;
 }
 
 @media only screen and (max-width : 992px) {
@@ -8,11 +11,12 @@ header, main, footer {
   }
 }
 
-.nav_switch_holder{
+.side-nav {
+  font-size: 50%;
+}
+
+.nav_switch_holder {
   margin-top:-1em;
-  text-align:center;
-  .switch{
-  }
 }
 
 .nav_img_hidden{
@@ -24,11 +28,15 @@ header, main, footer {
 }
 
 .nav_img_changer {
+  .col {
+    padding: 0 !important;
+  }
   margin-bottom:0;
   label {
     font-weight:bold;
     color: white;
     .lever {
+      margin-left: 2em;
       background-color: $tertiary-color-light;
       &:after{
         background-color: $tertiary-color;
@@ -45,7 +53,9 @@ header, main, footer {
 }
 
 #slide-out {
+  width: $sideNav-width !important;
   background-color: black !important;
+  font-size: 80%;
 }
 
 .nav_btn .disabled {
@@ -66,7 +76,6 @@ header, main, footer {
 }
 
 /*NavBar Related*/
-$nav-height: 35px;
 nav {
   &.nav_personal, &.nav_professional {
     -webkit-transition: all 0.5s ease;

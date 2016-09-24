@@ -1,0 +1,37 @@
+$color: rgba(0,0,0,.75);
+$steps: 44;
+$width: 14.1em;
+
+.welcome-content{
+  display: none;
+  p {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  .row {
+    margin-bottom: 0; 
+  }
+}
+.name-typewriter{
+  @extend .flow-text;
+  position: relative;
+  top: 50%;  
+  width: $width;
+  margin: 0 auto;
+  border-right: 2px solid $color;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+
+  animation: typewriter 2s steps($steps) 0.5s 1 normal both,
+             blinkTextCursor 600ms steps($steps) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: $width;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: $color;}
+  to{border-right-color: transparent;}
+}

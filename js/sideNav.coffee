@@ -72,15 +72,7 @@ go_to = (where)->
       $('.brand-logo').html(loaded.find('.brand-logo').html())
       $('.brand-logo').fadeIn()
 
-firstTime = true
-first_time_init = ()->
-  menu_btn = $('a[data-activates=slide-out]:visible')
-  path = window.location.pathname
-  menu_btn.trigger('click') if firstTime and menu_btn.length and (path == '/' or path == '/pt-br/')
-  firstTime = false
-
 initialize = ()->
-  first_time_init()
   values = selected($('.switch.nav_img_changer input'))
 
   toggle_list_items(values.name)
@@ -145,6 +137,7 @@ initialize = ()->
         change_pages(href)
 
 $ ->
+  window.scrollTo(0,1);
   window.onpopstate = -> window.location.reload()
 
 $(window).on 'load',()->

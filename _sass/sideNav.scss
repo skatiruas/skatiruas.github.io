@@ -1,5 +1,10 @@
-$sideNav-width: 250px;
+$sideNav-width: 240px;
 $nav-height: 30px;
+
+footer .footer-copyright.small {
+  height: 2em !important;
+  line-height: 2em !important;
+}
 
 header, main, footer {
   padding-left: $sideNav-width;
@@ -76,16 +81,11 @@ header, main, footer {
 }
 
 /*NavBar Related*/
-nav {
-  &.nav_personal, &.nav_professional {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+.navbar-fixed nav {
+  @media only screen and (min-width : 992px) {
+    margin-left: -$sideNav-width/2;
   }
-  i{
-    color: black !important;
-  }
+
   &.nav_personal {
     background-color: $tertiary-color !important;
     #lang_dropdown li{
@@ -109,7 +109,13 @@ nav {
   }
 
   .brand-logo { 
-    font-size: 1.6rem; 
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  i {
+    color: black !important;
+    font-weight: normal;
   }
 
   @media only screen and (min-width: 601px){

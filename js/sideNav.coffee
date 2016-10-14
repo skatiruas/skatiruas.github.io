@@ -63,12 +63,13 @@ go_to = (where)->
       history.pushState(null, null, where)
       loaded = $(data)
       [html, scripts] = stripScripts(loaded.find('.page-content').html())
-      $('.page-content').html(html)
-      $('.page-content').fadeIn().promise().done(
+      $('.page-content').fadeOut()
+      $('.page-content').html(html).promise().done(
         ->
           for s in scripts
             $.getScript $(s).attr('src')
-        )
+          $(@).fadeIn()
+      )
       $('.brand-logo').html(loaded.find('.brand-logo').html())
       $('.brand-logo').fadeIn()
 
@@ -139,6 +140,4 @@ initialize = ()->
 $ ->
   window.scrollTo(0,1);
   window.onpopstate = -> window.location.reload()
-
-$(window).on 'load',()->
   $('main, footer').fadeIn().promise().done(->initialize())

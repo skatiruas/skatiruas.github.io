@@ -1,6 +1,0 @@
-personal: /assets/nav/personal.jpg
-professional: /assets/nav/professional.jpg
-footer:
-  -
-    image: /assets/footer/jekyll.png
-    href: jekyllrb.com

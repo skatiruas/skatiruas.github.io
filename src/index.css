@@ -3,3 +3,8 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+@font-face {
+  font-family: 'Gunny Rewritten';
+  src: local('Gunny Rewritten'), url(./assets/gnyrwn971.ttf) format('truetype');
+}

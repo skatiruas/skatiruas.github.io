@@ -3,11 +3,12 @@ import { Element } from 'react-scroll'
 import AppBar from './AppBar';
 import Home from './Home';
 import Personal from './Personal';
+import Contact from './Contact';
 
 const elements = {
   Home: <Home />,
   Personal: <Personal />,
-  Contact: null,
+  Contact: <Contact />,
 }
 
 export const sections = Object.keys(elements)

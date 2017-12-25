@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox';
+import Section from './Section'
 import styles from './Home.css'
 import ufmg from './assets/ufmg-square.svg'
 import appsomos from './assets/appsomos.svg'
@@ -36,6 +37,14 @@ const award = [
   },
 ]
 
+const greetings = [
+  <div key="title">Hello, I'm a <b>Software Engineer</b> currently working at:</div>,
+  <a key="image" href="http://www.somoseducacao.com.br/appprova/"
+     rel="noopener noreferrer" target='_blank'>
+    <img className={styles.image} alt="appprova-somos" src={appsomos} />
+  </a>
+]
+
 const listItem = ({ title, school, info, avatar, rightIcon }, i) => {
   const props = {
     itemContent: (
@@ -50,31 +59,20 @@ const listItem = ({ title, school, info, avatar, rightIcon }, i) => {
   return <ListItem {...props} key={`${i}${title}`} ripple={false} rightIcon={rightIcon} />
 }
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div className={styles.home}>
-        <div className={styles.greetings}>
-          <div>Hello, I'm a <b>Software Engineer</b> currently working at:</div>
-          <a href="http://www.somoseducacao.com.br/appprova/"
-             rel="noopener noreferrer" target='_blank'>
-            <img alt="appprova-somos" src={appsomos} />
-          </a>
-        </div>
-        <div>
-          <List>
-            <ListSubHeader caption='Education' />
-            <ListDivider />
-            {education.map(listItem)}
-            <br/>
-            <ListSubHeader caption='Honor & Award' />
-            <ListDivider />
-            {award.map(listItem)}
-          </List>
-        </div>
-      </div>
-    )
-  }
-}
+const Home = () => (
+  <Section greetings={greetings}>
+    <div>
+      <List>
+        <ListSubHeader caption='Education' />
+        <ListDivider />
+        {education.map(listItem)}
+        <br/>
+        <ListSubHeader caption='Honor & Award' />
+        <ListDivider />
+        {award.map(listItem)}
+      </List>
+    </div>
+  </Section>
+)
 
 export default Home;

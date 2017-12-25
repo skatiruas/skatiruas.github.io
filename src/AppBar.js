@@ -4,13 +4,14 @@ import styles from './AppBar.css'
 import github from './assets/github.svg'
 import linkedin from './assets/linkedin.svg'
 import { Link } from 'react-scroll'
+import { sections } from './App'
 
 const IconLink = ({ icon, href }) => (
   <IconButton icon={<img alt={icon} src={icon} width="22" />} href={href} target='_blank'/>
 )
 
 class AppBar extends React.Component {
-  state = { current: 'Home', offset: -150, animating: false }
+  state = { current: 'Home', animating: false }
 
   setter = (label, direct = false) => {
     const { current, animating } = this.state
@@ -20,9 +21,10 @@ class AppBar extends React.Component {
   }
 
   scrollLink = label => (
-    <Link to={label} spy={true} smooth={true} duration={500}
-          offset={this.state.offset} onSetActive={() => this.setter(label)} >
-      <Button label={label} disabled={this.state.current === label} onClick={() => this.setter(label, true)}/>
+    <Link to={label} spy={true} smooth={true} duration={500} key={label}
+          offset={-this.props.offset} onSetActive={() => this.setter(label)} >
+      <Button label={label} disabled={this.state.current === label}
+              onClick={() => this.setter(label, true)}/>
     </Link>
   )
 
@@ -30,7 +32,7 @@ class AppBar extends React.Component {
     const personal = this.state.current === 'Personal'
     const image = `${process.env.PUBLIC_URL}/profile${personal ? '-personal' : ''}.jpg`
     return (
-      <div className={styles.holder}>
+      <div className={styles.holder} ref={ r => this.holder = r }>
         <div className={styles.signature}>
           <span className={styles.signatureName}>Tiago Ruas</span>
           <div className={styles.signatureLinks}>
@@ -42,10 +44,7 @@ class AppBar extends React.Component {
           <img alt="profile" className={styles.image} src={image} />
         </Avatar>
         <div className={styles.signature}>
-          {this.scrollLink('Home')}
-          {this.scrollLink('Projects')}
-          {this.scrollLink('Personal')}
-          {this.scrollLink('Contact')}
+          {sections.map(this.scrollLink)}
         </div>
       </div>
     )

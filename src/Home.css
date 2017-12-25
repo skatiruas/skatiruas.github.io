@@ -5,7 +5,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 .greetings {
@@ -32,6 +32,7 @@
   flex-direction: column;
   height: 72px;
   justify-content: center;
+  white-space: normal;
 }
 
 .itemTitle {
@@ -43,7 +44,6 @@
   color: rgb(117, 117, 117);
   font-size: 0.9em;
   padding-top: 3px;
-  white-space: normal;
 }
 
 .itemInfo {

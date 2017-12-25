@@ -1,25 +1,44 @@
 import React from 'react';
 import { Element } from 'react-scroll'
-import styles from './App.css';
 import AppBar from './AppBar';
 import Home from './Home';
+import Personal from './Personal';
 
 const elements = {
   Home: <Home />,
-  Projects: null,
-  Personal: null,
+  Personal: <Personal />,
   Contact: null,
 }
 
-const linkedElement = key => <Element key={key} name={key}>{elements[key]}</Element>
+export const sections = Object.keys(elements)
 
-const App = () => (
-  <div className={styles.holder}>
-    <AppBar />
-    <div className={styles.sections}>
-      {Object.keys(elements).map(linkedElement)}
+class App extends React.Component {
+  state = { offset: 140 }
+
+  componentDidMount() {
+    window.scrollTo(0, 0)
+    this._updateOffset()
+    window.addEventListener('resize', () => this._updateOffset())
+  }
+
+  _updateOffset() {
+    const offset = this.appbar.holder.clientHeight
+    if (offset !== this.state.offset) this.setState({ offset })
+  }
+
+  _sections = () => {
+    const minHeight = `calc(100vh - ${this.state.offset}px)`
+    return sections.map(key => (
+      <Element style={{ minHeight }} key={key} name={key}>{elements[key]}</Element>
+    ))
+  }
+
+  render = () => (
+    <div style={{ marginTop: `${this.state.offset}px` }}>
+      <AppBar ref={ r => this.appbar = r } offset={this.state.offset} />
+      {this._sections()}
     </div>
-  </div>
-)
+  )
+}
 
 export default App

@@ -6,7 +6,13 @@
   border-style: solid;
   border-color: #8c8b8b;
   border-width: 0 0 1px 0;
-  border-radius: 3em;
+  border-bottom-left-radius: 3em;
+  border-bottom-right-radius: 3em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
 }
 
 .signature {
@@ -35,6 +41,7 @@
 
 .image {
   width: 100%;
+  transition: 0.5s linear;
 }
 
 @media screen and (max-width: 480px) {

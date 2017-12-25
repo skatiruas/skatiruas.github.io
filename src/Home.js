@@ -36,41 +36,45 @@ const award = [
   },
 ]
 
-const Item = ({ title, school, info, avatar, rightIcon }) => (
-  <ListItem key={title}
-    avatar={<img alt={avatar} src={avatar} className={styles.avatar} />}
-    ripple={false}
-    caption={title}
-    legend={<div>{school}<br/><span className={styles.info}>{info}</span></div>}
-    rightIcon={rightIcon}
-  />
-)
+const listItem = ({ title, school, info, avatar, rightIcon }, i) => {
+  const props = {
+    itemContent: (
+      <div className={styles.itemContent}>
+        <div className={styles.itemTitle}>{title}</div>
+        <div className={styles.itemSchool}>{school}</div>
+        <div className={styles.itemInfo}>{info}</div>
+      </div>
+    ),
+    avatar: <img alt={avatar} src={avatar} className={styles.avatar} />,
+  }
+  return <ListItem {...props} key={`${i}${title}`} ripple={false} rightIcon={rightIcon} />
+}
 
 class Home extends React.Component {
-    render() {
-      return (
-        <div className={styles.home}>
-          <div className={styles.greetings}>
-            <div>Hello, I'm a <b>Software Engineer</b> currently working at:</div>
-            <a href="http://www.somoseducacao.com.br/appprova/"
-               rel="noopener noreferrer" target='_blank'>
-              <img alt="appprova-somos" src={appsomos} />
-            </a>
-          </div>
-          <div>
-            <List selectable ripple>
-              <ListSubHeader caption='Education' />
-              <ListDivider />
-              {education.map(e => <Item {...e} />)}
-              <br/>
-              <ListSubHeader caption='Honor & Award' />
-              <ListDivider />
-              {award.map(e => <Item {...e} />)}
-            </List>
-          </div>
+  render() {
+    return (
+      <div className={styles.home}>
+        <div className={styles.greetings}>
+          <div>Hello, I'm a <b>Software Engineer</b> currently working at:</div>
+          <a href="http://www.somoseducacao.com.br/appprova/"
+             rel="noopener noreferrer" target='_blank'>
+            <img alt="appprova-somos" src={appsomos} />
+          </a>
         </div>
-      )
-    }
+        <div>
+          <List>
+            <ListSubHeader caption='Education' />
+            <ListDivider />
+            {education.map(listItem)}
+            <br/>
+            <ListSubHeader caption='Honor & Award' />
+            <ListDivider />
+            {award.map(listItem)}
+          </List>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Home;

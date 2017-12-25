@@ -2,7 +2,7 @@
   font-family: 'Open Sans';
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 10px;
@@ -27,7 +27,27 @@
   background-color: white;
 }
 
-.info {
-  font-weight: 600;
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  height: 72px;
+  justify-content: center;
+}
+
+.itemTitle {
+  color: rgb(33, 33, 33);
+  font-size: 1em;
+}
+
+.itemSchool {
+  color: rgb(117, 117, 117);
   font-size: 0.9em;
+  padding-top: 3px;
+  white-space: normal;
+}
+
+.itemInfo {
+  color: rgb(117, 117, 117);
+  font-weight: 600;
+  font-size: 0.8em;
 }

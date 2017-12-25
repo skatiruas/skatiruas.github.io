@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import AppBar from './AppBar';
-import Home from './Home';
 import registerServiceWorker from './registerServiceWorker';
+import './index.css';
+import App from './App';
 
-ReactDOM.render(<div><AppBar /><Home /></div>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

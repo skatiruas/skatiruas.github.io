@@ -1,0 +1,7 @@
+.holder {
+  margin-top: 145px;
+}
+
+.sections >div {
+  min-height: calc(100vh - 145px);
+}

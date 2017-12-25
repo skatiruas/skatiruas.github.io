@@ -1,0 +1,56 @@
+.holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Gunny Rewritten;
+  border-style: solid;
+  border-color: #8c8b8b;
+  border-width: 0 0 1px 0;
+  border-bottom-left-radius: 3em;
+  border-bottom-right-radius: 3em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
+}
+
+.signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signatureName {
+  font-size: 3rem;
+  flex-grow: 2;
+  margin-bottom: 5px;
+}
+
+.signatureLinks {
+  display: flex;
+  flex-grow: 1;
+}
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  margin: 5px;
+}
+
+.image {
+  width: 100%;
+  transition: 0.5s linear;
+}
+
+@media screen and (max-width: 480px) {
+  .signatureName {
+    font-size: 2rem;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+}

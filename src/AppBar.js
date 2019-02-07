@@ -1,6 +1,8 @@
 import React from 'react';
-import { Avatar, IconButton, Button } from 'react-toolbox';
-import styles from './AppBar.css'
+import Avatar from 'react-toolbox/lib/avatar/Avatar';
+import Button from 'react-toolbox/lib/button/Button';
+import IconButton from 'react-toolbox/lib/button/IconButton';
+import styles from './AppBar.module.css'
 import github from './assets/github.svg'
 import linkedin from './assets/linkedin.svg'
 import { Link } from 'react-scroll'

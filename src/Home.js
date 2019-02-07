@@ -1,7 +1,7 @@
 import React from 'react';
-import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox';
+import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 import Section from './Section'
-import styles from './Home.css'
+import styles from './Home.module.css'
 import ufmg from './assets/ufmg-square.svg'
 import appsomos from './assets/appsomos.svg'
 import udacity from './assets/udacity.svg'

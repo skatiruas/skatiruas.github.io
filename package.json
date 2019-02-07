@@ -7,15 +7,23 @@
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3",
     "react-scroll": "^1.7.4",
-    "react-toolbox": "^2.0.0-beta.13"
+    "react-toolbox": "^2.0.0-beta.13",
+    "react-toolbox-themr": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "PUBLIC_URL='/build' react-scripts build && mv build/index.html .",
     "test": "react-scripts test",
+    "toolbox": "react-toolbox-themr",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

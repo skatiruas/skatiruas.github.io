@@ -67,7 +67,7 @@ class Contact extends React.Component {
       personal</b> contact, send me a message! </div>}
       childrenClassName={styles.form}
     >
-      <div>
+      <div className={styles.inputHolder}>
         {this._input('text', 'Name', 'name')}
         {this._input('email', 'Email', 'email')}
         {this._input('text', 'Message', 'message', { multiline: true, rows: 6 })}

@@ -4,6 +4,7 @@ import Button from 'react-toolbox/lib/button/Button';
 import IconButton from 'react-toolbox/lib/button/IconButton';
 import styles from './AppBar.module.css'
 import github from './assets/github.svg'
+import gitlab from './assets/gitlab.svg'
 import linkedin from './assets/linkedin.svg'
 import { Link } from 'react-scroll'
 import { sections } from './App'
@@ -39,6 +40,7 @@ class AppBar extends React.Component {
           <span className={styles.signatureName}>Tiago Ruas</span>
           <div className={styles.signatureLinks}>
             <IconLink icon={github} href='https://github.com/skatiruas' />
+            <IconLink icon={gitlab} href='https://gitlab.com/skatiruas' />
             <IconLink icon={linkedin} href='https://www.linkedin.com/in/skatiruas' />
           </div>
         </div>

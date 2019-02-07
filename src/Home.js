@@ -1,18 +1,11 @@
 import React from 'react';
-import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox';
+import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list';
 import Section from './Section'
-import styles from './Home.css'
+import styles from './Home.module.css'
 import ufmg from './assets/ufmg-square.svg'
-import appsomos from './assets/appsomos.svg'
-import udacity from './assets/udacity.svg'
+import smartReporting from './assets/smart-reporting.png'
 
 const education = [
-  {
-    title: 'Machine Learning Engineer Nanodegree',
-    school: 'Udacity',
-    info: 'Currently attending this course',
-    avatar: udacity,
-  },
   {
     title: 'BSc in Computer Science',
     school: 'Federal University of Minas Gerais',
@@ -39,9 +32,10 @@ const award = [
 
 const greetings = [
   <div key="title">Hello, I'm a <b>Software Engineer</b> currently working at:</div>,
-  <a key="image" href="http://www.somoseducacao.com.br/appprova/"
-     rel="noopener noreferrer" target='_blank'>
-    <img className={styles.image} alt="appprova-somos" src={appsomos} />
+  <a key="image" href="https://www.smart-radiology.com/en/"
+     rel="noopener noreferrer" target='_blank' className={styles.currentWork}>
+    <img className={styles.currentLogo} alt="smart-reporting" src={smartReporting} />
+    <b>Smart Reporting GmbH</b>
   </a>
 ]
 

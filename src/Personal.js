@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardMedia, CardTitle } from 'react-toolbox';
-import styles from './Personal.css'
+import { Card, CardMedia, CardTitle } from 'react-toolbox/lib/card';
+import styles from './Personal.module.css'
 import Section from './Section'
 
 const embeds = [

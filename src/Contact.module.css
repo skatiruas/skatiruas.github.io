@@ -3,6 +3,10 @@
   margin-bottom: 10px;
 }
 
+.inputHolder {
+  padding: 0 10px 10px 10px;
+}
+
 .form {
   max-width: 500px;
   width: 100%;

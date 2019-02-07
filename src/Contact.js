@@ -1,7 +1,8 @@
 import React from 'react';
-import { Input, Button } from 'react-toolbox';
+import Button from 'react-toolbox/lib/button/Button';
+import Input from 'react-toolbox/lib/input/Input';
 import Section from './Section'
-import styles from './Contact.css';
+import styles from './Contact.module.css';
 
 const validEmail = email => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
 const emptyState = { name: '', email: '', message: '', errors: {}, status: false }
@@ -66,7 +67,7 @@ class Contact extends React.Component {
       personal</b> contact, send me a message! </div>}
       childrenClassName={styles.form}
     >
-      <div>
+      <div className={styles.inputHolder}>
         {this._input('text', 'Name', 'name')}
         {this._input('email', 'Email', 'email')}
         {this._input('text', 'Message', 'message', { multiline: true, rows: 6 })}

@@ -3,7 +3,7 @@ import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/li
 import Section from './Section'
 import styles from './Home.module.css'
 import ufmg from './assets/ufmg-square.svg'
-import smartReporting from './assets/smart-reporting.png'
+import smartReporting from './assets/smart-reporting.svg'
 
 const education = [
   {
@@ -32,10 +32,9 @@ const award = [
 
 const greetings = [
   <div key="title">Hello, I'm a <b>Software Engineer</b> currently working at:</div>,
-  <a key="image" href="https://www.smart-radiology.com/en/"
+  <a key="image" href="https://www.smart-reporting.com/"
      rel="noopener noreferrer" target='_blank' className={styles.currentWork}>
     <img className={styles.currentLogo} alt="smart-reporting" src={smartReporting} />
-    <b>Smart Reporting GmbH</b>
   </a>
 ]
 

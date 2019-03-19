@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "5d4e4e39bc6c315ddebf",
-    "url": "/build/static/css/main.12b7b764.chunk.css"
+    "revision": "e379e3df645dcc06c771",
+    "url": "/build/static/css/main.e98572b9.chunk.css"
   },
   {
-    "revision": "5d4e4e39bc6c315ddebf",
-    "url": "/build/static/js/main.5d4e4e39.chunk.js"
+    "revision": "e379e3df645dcc06c771",
+    "url": "/build/static/js/main.e379e3df.chunk.js"
   },
   {
     "revision": "3e189884843b4e217512",
@@ -36,11 +36,15 @@ self.__precacheManifest = [
     "url": "/build/static/media/linkedin.fd5fa769.svg"
   },
   {
+    "revision": "1e6f6029f51be85a0d64e8305ac3a175",
+    "url": "/build/static/media/smart-reporting.1e6f6029.svg"
+  },
+  {
     "revision": "70635d725d711fb482cdf8d9eb18edf1",
     "url": "/build/static/media/gnyrwn971.70635d72.ttf"
   },
   {
-    "revision": "9fd3ef2f2b5d8e9c18ca0880117c012d",
+    "revision": "93cdc3ff121047cad67f241cddf26d71",
     "url": "/build/index.html"
   }
 ];

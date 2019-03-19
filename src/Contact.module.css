@@ -3,6 +3,10 @@
   margin-bottom: 10px;
 }
 
+.input textarea {
+  resize: none;
+}
+
 .inputHolder {
   padding: 0 10px 10px 10px;
 }

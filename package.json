@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "PUBLIC_URL='/build' react-scripts build && mv build/index.html .",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "toolbox": "react-toolbox-themr",
     "eject": "react-scripts eject"

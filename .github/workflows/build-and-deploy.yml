@@ -12,8 +12,8 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn run build
           touch build/.nojekyll
 
       - name: Deploy 🚀

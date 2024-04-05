@@ -9,17 +9,17 @@ interface Embed {
 }
 
 const embeds: Embed[] = [
+  { title: "Snowboarding", href: "CleGgPGAwFq" },
   { title: "Skateboarding", href: "BIQToGXABVI" },
-  { title: "Snowboarding", href: "BWbKJxXFCC8" },
-  { title: "Skydiving", href: "BVfNA2ilMl9" },
-  { title: "Music", href: "BQxzg5ulrZV" },
+  { title: "Wakeboarding", href: "CiC3lM8gHPR" },
+  { title: "Music", href: "CWyVzFegxMt" },
 ];
 
 const Blockquote = ({ href }: Pick<Embed, "href">) => (
   <blockquote
     className={`${styles.blockquote} instagram-media`}
     data-instgrm-permalink={href}
-    data-instgrm-version="8"
+    data-instgrm-version="14"
   >
     <div className={styles.embedCard}>
       <div className={styles.embedWindow}>

@@ -6,12 +6,13 @@
 }
 
 .blockquote {
-  background: #FFF;
+  background: #fff;
   border: 0;
   border-radius: 3px;
-  box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5), 0 1px 10px 0 rgba(0, 0, 0, 0.15);
   margin: 1px;
-  max-width: 658px;
+  max-width: 540px;
+  min-width: 326px;
   padding: 0;
   width: 99.375%;
   width: -webkit-calc(100% - 2px);
@@ -19,14 +20,14 @@
 }
 
 .embedCard {
-  padding: 8px;
+  padding: 16px;
 }
 
 .embedWindow {
-  background: #F8F8F8;
+  background: #f8f8f8;
   line-height: 0;
   margin-top: 40px;
-  padding: 50.0% 0;
+  padding: 50% 0;
   text-align: center;
   width: 100%;
 }

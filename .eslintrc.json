@@ -5,11 +5,7 @@
     "sourceType": "module"
   },
   "plugins": ["prettier", "@typescript-eslint", "react-hooks"],
-  "extends": [
-    "prettier",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["prettier", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",

@@ -1,22 +1,63 @@
 import React, { ReactElement, useCallback, useMemo, useState } from "react";
-import styles from "./AppBar.module.css";
 
-import Avatar from "react-toolbox/lib/avatar/Avatar";
-import Button, { ButtonProps } from "react-toolbox/lib/button/Button";
-import IconButton from "react-toolbox/lib/button/IconButton";
-import github from "./assets/github.svg";
-import gitlab from "./assets/gitlab.svg";
-import linkedin from "./assets/linkedin.svg";
 import { Link } from "react-scroll";
+import { Avatar, Button, IconButton, SvgIcon, styled } from "@mui/material";
+import GitHubIcon from "./assets/GitHubIcon";
+import GitLabIcon from "./assets/GitLabIcon";
+import LinkedInIcon from "./assets/LinkedInIcon";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { ThemeModeContext } from "./Theme";
 
-const IconLink = ({ icon, href }: { icon: string; href: string }) => {
-  const props: ButtonProps = {
-    target: "_blank",
-    icon: <img alt={icon} src={icon} width="22" />,
-    href,
-  };
-  return <IconButton {...props} />;
-};
+const Wrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontFamily: "Gunny Rewritten",
+  borderStyle: "solid",
+  color: theme.palette.text.primary,
+  backgroundColor: theme.palette.background.default,
+  borderColor: theme.palette.divider,
+  borderWidth: "0 0 1px 0",
+  borderBottomLeftRadius: "3em",
+  borderBottomRightRadius: "3em",
+  position: "fixed",
+  top: "0",
+  width: "100%",
+  zIndex: 999,
+}));
+
+const SignatureAndLinks = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const Signature = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: theme.palette.text.primary,
+  fontSize: "3rem",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "2rem",
+  },
+  flexGrow: 2,
+  marginBottom: 5,
+}));
+
+const Links = styled("div")(() => ({
+  display: "flex",
+  flexGrow: 1,
+}));
+
+const Buttons = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+  justifyContent: "center",
+}));
 
 export enum SectionLabel {
   Home = "Home",
@@ -30,6 +71,26 @@ export const sectionLabels: ReadonlyArray<SectionLabel> = [
   SectionLabel.Contact,
 ];
 
+const IconLink = ({
+  component,
+  href,
+  title,
+}: {
+  component: React.ElementType;
+  href: string;
+  title: string;
+}) => {
+  return (
+    <IconButton
+      onClick={() => window.open(href, "_blank")}
+      color="inherit"
+      title={title}
+    >
+      <SvgIcon component={component} fontSize="small" />
+    </IconButton>
+  );
+};
+
 export const AppBar = React.forwardRef(function AppBarRef(
   { offset }: { offset: number },
   ref: React.Ref<HTMLDivElement>
@@ -38,6 +99,7 @@ export const AppBar = React.forwardRef(function AppBarRef(
     SectionLabel.Home
   );
   const [isAnimating, setIsAnimating] = useState(false);
+  const [mode, setMode] = React.useContext(ThemeModeContext);
 
   const onLinkActiveFor = useCallback(
     (label: SectionLabel) => () => {
@@ -64,22 +126,47 @@ export const AppBar = React.forwardRef(function AppBarRef(
   );
 
   return (
-    <div className={styles.holder} ref={ref}>
-      <div className={styles.signature}>
-        <span className={styles.signatureName}>Tiago Ruas</span>
-        <div className={styles.signatureLinks}>
-          <IconLink icon={github} href="https://github.com/skatiruas" />
-          <IconLink icon={gitlab} href="https://gitlab.com/skatiruas" />
+    <Wrapper ref={ref}>
+      <SignatureAndLinks>
+        <Signature>Tiago Ruas</Signature>
+        <Links>
           <IconLink
-            icon={linkedin}
-            href="https://www.linkedin.com/in/skatiruas"
+            component={GitHubIcon}
+            href="https://github.com/skatiruas"
+            title="GitHub"
           />
-        </div>
-      </div>
-      <Avatar className={styles.avatar}>
-        <img alt="profile" className={styles.image} src={image} />
-      </Avatar>
-      <div className={styles.signature}>
+          <IconLink
+            component={GitLabIcon}
+            href="https://gitlab.com/skatiruas"
+            title="GitLab"
+          />
+          <IconLink
+            component={LinkedInIcon}
+            href="https://www.linkedin.com/in/skatiruas"
+            title="LinkedIn"
+          />
+        </Links>
+      </SignatureAndLinks>
+      <Avatar
+        src={image}
+        sx={{
+          margin: "5px",
+          width: "120px !important",
+          height: "120px !important",
+        }}
+      />
+      <Buttons>
+        <IconButton
+          color="inherit"
+          onClick={() => setMode(mode === "dark" ? "light" : "dark")}
+          sx={{ width: 16, height: 16 }}
+        >
+          {mode === "dark" ? (
+            <DarkModeIcon sx={{ width: "inherit", height: "inherit" }} />
+          ) : (
+            <LightModeIcon sx={{ width: "inherit", height: "inherit" }} />
+          )}
+        </IconButton>
         {sectionLabels.map((label) => (
           <Link
             to={label}
@@ -91,13 +178,15 @@ export const AppBar = React.forwardRef(function AppBarRef(
             onSetActive={onLinkActiveFor(label)}
           >
             <Button
-              label={label}
               disabled={currentSectionLabel === label}
               onClick={onLinkClickFor(label)}
-            />
+              color="inherit"
+            >
+              {label}
+            </Button>
           </Link>
         ))}
-      </div>
-    </div>
+      </Buttons>
+    </Wrapper>
   );
 });

@@ -1,7 +1,12 @@
-import React, { ReactElement } from "react";
-import { Card, CardMedia, CardTitle } from "react-toolbox/lib/card";
-import styles from "./Personal.module.css";
+import { ReactElement } from "react";
 import { Section } from "./Section";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  styled,
+} from "@mui/material";
 
 interface Embed {
   title: string;
@@ -15,26 +20,41 @@ const embeds: Embed[] = [
   { title: "Music", href: "CWyVzFegxMt" },
 ];
 
-const Blockquote = ({ href }: Pick<Embed, "href">) => (
-  <blockquote
-    className={`${styles.blockquote} instagram-media`}
-    data-instgrm-permalink={href}
-    data-instgrm-version="14"
-  >
-    <div className={styles.embedCard}>
-      <div className={styles.embedWindow}>
-        <div className={styles.embedMedia}></div>
-      </div>
-    </div>
-  </blockquote>
-);
+const InstagramBlockquote = styled("blockquote")(({ theme }) => ({
+  background: "inherit",
+  border: 0,
+  borderRadius: "3px",
+  boxShadow: theme.shadows["1"],
+  margin: "1px",
+  maxWidth: "540px",
+  minWidth: "326px",
+  padding: 0,
+  width: "calc(100% - 2px)",
+}));
 
 const InstagramEmbed = ({ href, title }: Embed) => (
-  <Card className={styles.card}>
+  <Card sx={{ maxWidth: "400px", margin: "10px", width: "100%" }}>
     <CardMedia>
-      <Blockquote href={`https://www.instagram.com/p/${href}`} />
+      <InstagramBlockquote
+        className={"instagram-media"}
+        data-instgrm-permalink={`https://www.instagram.com/p/${href}`}
+        data-instgrm-version="14"
+      />
     </CardMedia>
-    <CardTitle className={styles.cardTitle} title={title} />
+    <CardContent>
+      <Typography
+        gutterBottom
+        variant="h5"
+        component="div"
+        sx={{
+          fontFamily: "Gunny Rewritten, Open Sans, serif",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {title}
+      </Typography>
+    </CardContent>
   </Card>
 );
 
@@ -47,7 +67,14 @@ export const Personal = (): ReactElement => (
       </div>
     }
   >
-    <div className={styles.embeds}>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        alignItems: "baseline",
+      }}
+    >
       {embeds.map(({ href, title }) => (
         <InstagramEmbed key={href} href={href} title={title} />
       ))}

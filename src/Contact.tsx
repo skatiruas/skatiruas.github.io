@@ -1,8 +1,7 @@
-import React, { ReactElement, useCallback, useMemo, useState } from "react";
-import Button from "react-toolbox/lib/button/Button";
-import Input, { InputProps } from "react-toolbox/lib/input/Input";
+import { ReactElement, useCallback, useMemo, useState } from "react";
 import { Section } from "./Section";
-import styles from "./Contact.module.css";
+import { Button, TextField } from "@mui/material";
+import { Email } from "@mui/icons-material";
 
 const validEmail = (email: string) =>
   /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
@@ -34,30 +33,37 @@ export function Contact(): ReactElement {
 
   const handleChange = useCallback(
     (field: keyof ContactFields, value: string) => {
+      setStatus(ContactStatus.Idle);
       setErrors((prevState) => ({ ...prevState, [field]: "" }));
       setFields((prevState) => ({ ...prevState, [field]: value }));
     },
     []
   );
 
-  const isDisabled = useMemo(() => status !== ContactStatus.Idle, [status]);
+  const isDisabled = useMemo(() => status == ContactStatus.Sending, [status]);
 
   const renderInput = useCallback(
     (
       type: "text" | "email",
       label: string,
       field: keyof ContactFields,
-      extraProps: Partial<InputProps> = {}
+      extraProps: Partial<unknown> = {}
     ) => (
-      <Input
-        className={styles.input}
+      <TextField
         name={field}
         type={type}
         label={label}
-        onChange={(value: string) => handleChange(field, value)}
+        inputProps={{
+          onChange: (e) => handleChange(field, e.currentTarget.value),
+        }}
         value={fields[field]}
-        error={errors[field]}
+        error={!!errors[field]}
+        helperText={errors[field]}
         disabled={isDisabled}
+        sx={{
+          width: "100%",
+          marginBottom: "10px",
+        }}
         {...extraProps}
       />
     ),
@@ -99,8 +105,10 @@ export function Contact(): ReactElement {
       setErrors({});
       setFields({ ...emptyFields });
       setStatus(ContactStatus.Sent);
-    } catch (e) {
-      setErrors({ message: e.message ?? "Unknown error, try again" });
+    } catch (e: unknown) {
+      setErrors({
+        message: (e as ErrorEvent).message ?? "Unknown error, try again",
+      });
       setStatus(ContactStatus.Idle);
     }
   }, [fields, validate]);
@@ -113,9 +121,15 @@ export function Contact(): ReactElement {
           contact, send me a message!
         </div>
       }
-      childrenClassName={styles.form}
     >
-      <div className={styles.inputHolder}>
+      <div
+        style={{
+          maxWidth: "500px",
+          width: "100%",
+          textAlign: "center",
+          padding: "0 10px 10px 10px",
+        }}
+      >
         {renderInput("text", "Name", "name")}
         {renderInput("email", "Email", "email")}
         {renderInput("text", "Message", "message", {
@@ -123,20 +137,21 @@ export function Contact(): ReactElement {
           rows: 6,
         })}
         <Button
-          icon={status === ContactStatus.Sent ? "email" : undefined}
-          label={
-            status === ContactStatus.Sent
-              ? "The Email has been sent"
-              : status === ContactStatus.Sending
-              ? "Sending..."
-              : "Send"
-          }
+          startIcon={status === ContactStatus.Sent ? <Email /> : undefined}
           disabled={isDisabled}
-          className={status === ContactStatus.Sent ? styles.sent : undefined}
+          color={status === ContactStatus.Sent ? "success" : undefined}
+          sx={{
+            pointerEvents: status === ContactStatus.Sent ? "none" : undefined,
+          }}
           onClick={onSend}
-          raised
-          primary
-        />
+          variant="contained"
+        >
+          {status === ContactStatus.Sent
+            ? "The Email has been sent"
+            : status === ContactStatus.Sending
+            ? "Sending..."
+            : "Send"}
+        </Button>
       </div>
     </Section>
   );

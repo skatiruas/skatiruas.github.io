@@ -4,7 +4,7 @@ export default createSvgIcon(
   <svg
     width="36"
     height="36"
-    enable-background="new 0 0 50 50"
+    enableBackground="new 0 0 50 50"
     version="1.1"
     viewBox="0 0 36 36"
     xmlns="http://www.w3.org/2000/svg"

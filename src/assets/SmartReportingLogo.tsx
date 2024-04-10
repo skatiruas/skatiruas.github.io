@@ -2,7 +2,7 @@ import { createSvgIcon } from "@mui/material";
 
 export default createSvgIcon(
   <svg
-    enable-background="new 0 0 718.41 52.48"
+    enableBackground="new 0 0 718.41 52.48"
     version="1.1"
     viewBox="0 0 718.41 52.48"
     xmlns="http://www.w3.org/2000/svg"

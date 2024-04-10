@@ -53,6 +53,7 @@ const greetings = [
     Hello, I&apos;m a <b>Software Engineer</b> currently working at:
   </div>,
   <Button
+    key="company"
     onClick={() => window.open("https://www.smart-reporting.com/", "_blank")}
     color="inherit"
     sx={{ marginTop: 5 }}
@@ -84,8 +85,9 @@ const ContentItem = ({
         primary={title}
         secondary={
           <>
-            <div>{infoLine1}</div>
-            <div style={{ fontWeight: 600 }}>{infoLine2}</div>
+            {infoLine1}
+            <br />
+            <b>{infoLine2}</b>
           </>
         }
       />
@@ -99,12 +101,12 @@ export const Home = (): ReactElement => (
       <ListSubheader>Education</ListSubheader>
       <Divider />
       {education.map((props) => (
-        <ContentItem {...props} />
+        <ContentItem {...props} key={props.title} />
       ))}
       <ListSubheader>Honor & Award</ListSubheader>
       <Divider />
       {award.map((props) => (
-        <ContentItem {...props} />
+        <ContentItem {...props} key={props.title} />
       ))}
     </List>
   </Section>

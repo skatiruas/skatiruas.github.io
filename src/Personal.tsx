@@ -45,7 +45,6 @@ const InstagramEmbed = ({ href, title }: Embed) => (
       <Typography
         gutterBottom
         variant="h5"
-        component="div"
         sx={{
           fontFamily: "Gunny Rewritten, Open Sans, serif",
           display: "flex",

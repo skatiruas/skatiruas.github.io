@@ -8,9 +8,7 @@ export default createSvgIcon(
     viewBox="0 0 500 500"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <title>logo-square</title>
-    <desc>Created with Sketch.</desc>
-    <g fill="none" fill-rule="evenodd">
+    <g fill="none" fillRule="evenodd">
       <g id="logo-square">
         <g id="logo-no-bg" transform="translate(2 19)">
           <g id="gitlab_logo">

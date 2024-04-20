@@ -30,12 +30,6 @@ export function App(): ReactElement {
 
     updateOffset();
     window.addEventListener("resize", updateOffset);
-    window.onload = function () {
-      const embedScript = document.createElement("script");
-      embedScript.async = true;
-      embedScript.src = `https://www.instagram.com/embed.js?version=${Date.now()}`;
-      document.head.appendChild(embedScript);
-    };
 
     return () => window.removeEventListener("resize", updateOffset);
   }, []);

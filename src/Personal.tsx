@@ -1,44 +1,28 @@
 import { ReactElement } from "react";
 import { Section } from "./Section";
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
-interface Embed {
-  title: string;
-  href: string;
-}
-
-const embeds: Embed[] = [
-  { title: "Snowboarding", href: "CleGgPGAwFq" },
-  { title: "Skateboarding", href: "BIQToGXABVI" },
-  { title: "Wakeboarding", href: "CiC3lM8gHPR" },
-  { title: "Music", href: "CWyVzFegxMt" },
-];
-
-const InstagramBlockquote = styled("blockquote")(({ theme }) => ({
-  background: "inherit",
-  border: 0,
-  borderRadius: "3px",
-  boxShadow: theme.shadows["1"],
-  margin: "1px",
-  maxWidth: "540px",
-  minWidth: "326px",
-  padding: 0,
-  width: "calc(100% - 2px)",
-}));
-
-const InstagramEmbed = ({ href, title }: Embed) => (
-  <Card sx={{ maxWidth: "400px", margin: "10px", width: "100%" }}>
+const Mp4Card = ({ title }: { title: string }) => (
+  <Card sx={{ maxWidth: "320px", margin: "10px" }}>
     <CardMedia>
-      <InstagramBlockquote
-        className={"instagram-media"}
-        data-instgrm-permalink={`https://www.instagram.com/p/${href}`}
-        data-instgrm-version="14"
+      <video
+        src={`/video/${title}.mp4`}
+        poster={`/video/${title}.png`}
+        width="320"
+        style={{ maxWidth: "320px" }}
+        controls
+        controlsList="nodownload noplaybackrate nofullscreen"
+        loop
+        disablePictureInPicture
+        disableRemotePlayback
+        onContextMenu={(e) => e.preventDefault()}
+        onPlay={({ target }) => {
+          document.querySelectorAll("video").forEach((videoElement) => {
+            if (videoElement !== target) {
+              videoElement.pause();
+            }
+          });
+        }}
       />
     </CardMedia>
     <CardContent>
@@ -74,9 +58,20 @@ export const Personal = (): ReactElement => (
         alignItems: "baseline",
       }}
     >
-      {embeds.map(({ href, title }) => (
-        <InstagramEmbed key={href} href={href} title={title} />
-      ))}
+      {["Snowboarding", "Wakeboarding", "Music", "Skateboarding"].map(
+        (title) => (
+          <div
+            key={title}
+            style={{
+              flexBasis: "33%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Mp4Card title={title} />
+          </div>
+        )
+      )}
     </div>
   </Section>
 );

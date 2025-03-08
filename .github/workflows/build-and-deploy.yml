@@ -32,7 +32,11 @@ jobs:
         run: |
           yarn install
           yarn run build
+          rm build/static/js/*.map
+          rm build/static/css/*.map
           touch build/.nojekyll
+        env:
+          REACT_APP_CONTACT_EMAIL: ${{ secrets.REACT_APP_CONTACT_EMAIL }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

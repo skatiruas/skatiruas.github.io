@@ -88,14 +88,17 @@ export function Contact(): ReactElement {
     try {
       setStatus(ContactStatus.Sending);
 
-      const response = await fetch("https://formspree.io/skatiruas@gmail.com", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(fields),
-      });
+      const response = await fetch(
+        `https://formspree.io/${process.env.REACT_APP_CONTACT_EMAIL}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fields),
+        }
+      );
 
       if (!response.ok) {
         const { error } = await response.json();
@@ -114,14 +117,7 @@ export function Contact(): ReactElement {
   }, [fields, validate]);
 
   return (
-    <Section
-      greetings={
-        <div>
-          If you are interested in <b>professional</b> or even <b>personal</b>{" "}
-          contact, send me a message!
-        </div>
-      }
-    >
+    <Section greetings={<div>Send me a message!</div>}>
       <div
         style={{
           maxWidth: "500px",

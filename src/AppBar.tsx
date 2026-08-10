@@ -59,6 +59,22 @@ const Buttons = styled("div")(() => ({
   justifyContent: "center",
 }));
 
+const AvatarWrapper = styled("div")({
+  position: "relative",
+  width: 120,
+  height: 120,
+  margin: "5px",
+});
+
+const OrbitBadge = styled("div")<{ angle: number; distance: number }>(
+  ({ angle, distance }) => ({
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(${-distance}px) rotate(${-angle}deg)`,
+  })
+);
+
 export enum SectionLabel {
   Home = "Home",
   Personal = "Personal",
@@ -147,26 +163,36 @@ export const AppBar = React.forwardRef(function AppBarRef(
           />
         </Links>
       </SignatureAndLinks>
-      <Avatar
-        src={image}
-        sx={{
-          margin: "5px",
-          width: "120px !important",
-          height: "120px !important",
-        }}
-      />
+      <AvatarWrapper>
+        <Avatar
+          src={image}
+          sx={{
+            width: "120px !important",
+            height: "120px !important",
+          }}
+        />
+        <OrbitBadge angle={40} distance={70}>
+          <IconButton
+            color="inherit"
+            onClick={() => setMode(mode === "dark" ? "light" : "dark")}
+            sx={{
+              width: 16,
+              height: 16,
+              bgcolor: "background.default",
+              border: "2px solid",
+              borderColor: "divider",
+              "&:hover": { bgcolor: "background.default" },
+            }}
+          >
+            {mode === "dark" ? (
+              <DarkModeIcon sx={{ width: "inherit", height: "inherit" }} />
+            ) : (
+              <LightModeIcon sx={{ width: "inherit", height: "inherit" }} />
+            )}
+          </IconButton>
+        </OrbitBadge>
+      </AvatarWrapper>
       <Buttons>
-        <IconButton
-          color="inherit"
-          onClick={() => setMode(mode === "dark" ? "light" : "dark")}
-          sx={{ width: 16, height: 16 }}
-        >
-          {mode === "dark" ? (
-            <DarkModeIcon sx={{ width: "inherit", height: "inherit" }} />
-          ) : (
-            <LightModeIcon sx={{ width: "inherit", height: "inherit" }} />
-          )}
-        </IconButton>
         {sectionLabels.map((label) => (
           <Link
             to={label}

@@ -42,6 +42,15 @@ const Mp4Card = ({ title }: { title: string }) => (
             }
           });
         }}
+        onVolumeChange={({ target }) => {
+          const current = target as HTMLVideoElement;
+          document.querySelectorAll("video").forEach((videoElement) => {
+            if (videoElement !== current) {
+              videoElement.volume = current.volume;
+              videoElement.muted = current.muted;
+            }
+          });
+        }}
       />
     </CardMedia>
     <CardContent>

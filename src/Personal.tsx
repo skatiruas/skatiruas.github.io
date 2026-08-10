@@ -3,13 +3,32 @@ import { Section } from "./Section";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 const Mp4Card = ({ title }: { title: string }) => (
-  <Card sx={{ maxWidth: "320px", margin: "10px" }}>
-    <CardMedia>
+  <Card
+    sx={{
+      width: "100%",
+      maxWidth: "360px",
+      maxHeight: "calc(100dvh - var(--header-offset) - 16px)",
+      margin: "10px",
+      display: "grid",
+    }}
+  >
+    <CardMedia
+      sx={{
+        flex: "1 1 auto",
+        minHeight: 0,
+        overflow: "hidden",
+        display: "flex",
+      }}
+    >
       <video
         src={`/video/${title}.mp4`}
         poster={`/video/${title}.png`}
-        width="320"
-        style={{ maxWidth: "320px" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          display: "block",
+        }}
         controls
         controlsList="nodownload noplaybackrate nofullscreen"
         loop
@@ -33,6 +52,7 @@ const Mp4Card = ({ title }: { title: string }) => (
           fontFamily: "Gunny Rewritten, Open Sans, serif",
           display: "flex",
           justifyContent: "center",
+          margin: 0,
         }}
       >
         {title}
@@ -60,16 +80,7 @@ export const Personal = (): ReactElement => (
     >
       {["Snowboarding", "Wakeboarding", "Music", "Skateboarding"].map(
         (title) => (
-          <div
-            key={title}
-            style={{
-              flexBasis: "33%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Mp4Card title={title} />
-          </div>
+          <Mp4Card title={title} key={title} />
         )
       )}
     </div>

@@ -26,21 +26,31 @@ export function App(): ReactElement {
   const themeMode = useThemeMode();
 
   useEffect(() => {
-    const updateOffset = () => setOffset(appBarRef.current?.clientHeight ?? 0);
+    const node = appBarRef.current;
+    if (!node) return;
 
+    const updateOffset = () => setOffset(node.clientHeight);
     updateOffset();
-    window.addEventListener("resize", updateOffset);
 
-    return () => window.removeEventListener("resize", updateOffset);
+    const observer = new ResizeObserver(updateOffset);
+    observer.observe(node);
+
+    return () => observer.disconnect();
   }, []);
 
-  const minHeight = useMemo(() => `calc(100vh - ${offset}px)`, [offset]);
+  const minHeight = useMemo(() => `calc(100dvh - ${offset}px)`, [offset]);
 
   return (
     <ThemeModeContext.Provider value={themeMode}>
       <ThemeProvider theme={themeMode[0] === "dark" ? darkTheme : lightTheme}>
         <CssBaseline />
-        <AppWrapper style={{ marginTop: `${offset}px`, minHeight }}>
+        <AppWrapper
+          style={{
+            ["--header-offset" as string]: `${offset}px`,
+            marginTop: `${offset}px`,
+            minHeight,
+          }}
+        >
           <AppBar ref={appBarRef} offset={offset} />
           {sectionLabels.map((label) => (
             <Element style={{ minHeight }} key={label} name={label}>

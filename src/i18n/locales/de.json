@@ -1,0 +1,59 @@
+{
+  "home": {
+    "label": "Startseite",
+    "title": "Hallo, ich bin <strong>Softwareentwickler</strong> und arbeite derzeit bei:",
+    "education": {
+      "title": "Bildung",
+      "ufmg": "Universidade Federal de Minas Gerais (UFMG)",
+      "computerScience": {
+        "title": "Bachelor of Science in Informatik",
+        "info1": "$t(home.education.ufmg)",
+        "info2": "1. Semester 2013 - 1. Semester 2015"
+      },
+      "electricalEngineering": {
+        "title": "Nicht abgeschlossenes Bachelorstudium der Elektrotechnik",
+        "info1": "$t(home.education.ufmg)",
+        "info2": "2. Semester 2009 - 2. Semester 2012"
+      }
+    },
+    "honorAndAward": {
+      "title": "Auszeichnungen",
+      "featuredStudentAward": {
+        "title": "Auszeichnung als herausragender Student",
+        "info1": "DCC, $t(home.education.ufmg)",
+        "info2": "3. Platz im 1. Semester 2015 - Informatik"
+      }
+    }
+  },
+  "personal": {
+    "label": "Persönliches",
+    "title": "Ich bin außerdem <strong>Skateboarder</strong> und begeistere mich für <strong>Fotografie</strong> und <strong>Musik</strong>. Außerdem entdecke ich gerne <strong>neue Fähigkeiten</strong>.",
+    "cards": {
+      "snowboarding": "Snowboarden",
+      "wakeboarding": "Wakeboarden",
+      "music": "Musik",
+      "skateboarding": "Skateboarden"
+    }
+  },
+  "contact": {
+    "label": "Kontakt",
+    "title": "Schreib mir eine Nachricht!",
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Nachricht",
+      "errors": {
+        "blankName": "Der Name darf nicht leer sein",
+        "blankEmail": "Die E-Mail-Adresse darf nicht leer sein",
+        "invalidEmail": "Die E-Mail-Adresse ist ungültig",
+        "blankMessage": "Die Nachricht darf nicht leer sein",
+        "unknown": "Unbekannter Fehler. Bitte versuche es erneut."
+      },
+      "status": {
+        "sent": "Die E-Mail wurde gesendet",
+        "sending": "Wird gesendet...",
+        "idle": "Senden"
+      }
+    }
+  }
+}

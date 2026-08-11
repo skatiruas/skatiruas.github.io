@@ -1,0 +1,59 @@
+{
+  "home": {
+    "label": "Início",
+    "title": "Olá, sou <strong>Engenheiro de Software</strong> e atualmente trabalho na:",
+    "education": {
+      "title": "Formação",
+      "ufmg": "Universidade Federal de Minas Gerais (UFMG)",
+      "computerScience": {
+        "title": "Bacharelado em Ciência da Computação",
+        "info1": "$t(home.education.ufmg)",
+        "info2": "1º semestre de 2013 - 1º semestre de 2015"
+      },
+      "electricalEngineering": {
+        "title": "Graduação incompleta em Engenharia Elétrica",
+        "info1": "$t(home.education.ufmg)",
+        "info2": "2º semestre de 2009 - 2º semestre de 2012"
+      }
+    },
+    "honorAndAward": {
+      "title": "Honras e Prêmios",
+      "featuredStudentAward": {
+        "title": "Prêmio de Aluno Destaque",
+        "info1": "DCC, $t(home.education.ufmg)",
+        "info2": "3º lugar no 1º semestre de 2015 - Ciência da Computação"
+      }
+    }
+  },
+  "personal": {
+    "label": "Pessoal",
+    "title": "Também sou <strong>skatista</strong> e adoro <strong>fotografia</strong> e <strong>música</strong>. Além disso, gosto de <strong>aprender novas habilidades</strong>.",
+    "cards": {
+      "snowboarding": "Snowboard",
+      "wakeboarding": "Wakeboard",
+      "music": "Música",
+      "skateboarding": "Skate"
+    }
+  },
+  "contact": {
+    "label": "Contato",
+    "title": "Envie uma mensagem!",
+    "form": {
+      "name": "Nome",
+      "email": "E-mail",
+      "message": "Mensagem",
+      "errors": {
+        "blankName": "O nome não pode ficar em branco",
+        "blankEmail": "O e-mail não pode ficar em branco",
+        "invalidEmail": "O e-mail é inválido",
+        "blankMessage": "A mensagem não pode ficar em branco",
+        "unknown": "Erro desconhecido. Tente novamente."
+      },
+      "status": {
+        "sent": "O e-mail foi enviado",
+        "sending": "Enviando...",
+        "idle": "Enviar"
+      }
+    }
+  }
+}

@@ -14,6 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { Star } from "@mui/icons-material";
+import { Trans, useTranslation } from "react-i18next";
 
 interface ContentItemProps {
   title: string;
@@ -22,45 +23,6 @@ interface ContentItemProps {
   leftIcon: React.ReactElement;
   rightIcon?: React.ReactElement;
 }
-
-const education: ContentItemProps[] = [
-  {
-    title: "BSc in Computer Science",
-    infoLine1: "Federal University of Minas Gerais",
-    infoLine2: "2013/1st Semester - 2015/1st Semester",
-    leftIcon: <UfmgLogo />,
-  },
-  {
-    title: "Incomplete BEng in Electrical Engineering",
-    infoLine1: "Federal University of Minas Gerais",
-    infoLine2: "2009/2nd Semester - 2012/2nd Semester",
-    leftIcon: <UfmgLogo />,
-  },
-];
-
-const award: ContentItemProps[] = [
-  {
-    title: "Featured Student Award",
-    infoLine1: "DCC, Federal University of Minas Gerais",
-    infoLine2: "3rd Place of the 1st semester of 2015 - Computer Science",
-    leftIcon: <UfmgLogo />,
-    rightIcon: <Star />,
-  },
-];
-
-const greetings = [
-  <div key="title">
-    Hello, I&apos;m a <b>Software Engineer</b> currently working at:
-  </div>,
-  <Button
-    key="company"
-    onClick={() => window.open("https://www.smart-reporting.com/", "_blank")}
-    color="inherit"
-    sx={{ marginTop: 5 }}
-  >
-    <SmartReportingLogo sx={{ width: 300 }} />
-  </Button>,
-];
 
 const ContentItem = ({
   title,
@@ -95,19 +57,59 @@ const ContentItem = ({
   );
 };
 
-export const Home = (): ReactElement => (
-  <Section greetings={greetings}>
-    <List>
-      <ListSubheader>Education</ListSubheader>
-      <Divider />
-      {education.map((props) => (
-        <ContentItem {...props} key={props.title} />
-      ))}
-      <ListSubheader>Honor & Award</ListSubheader>
-      <Divider />
-      {award.map((props) => (
-        <ContentItem {...props} key={props.title} />
-      ))}
-    </List>
-  </Section>
-);
+export const Home = (): ReactElement => {
+  const { t } = useTranslation();
+  return (
+    <Section
+      greetings={[
+        <div key="title">
+          <Trans i18nKey="home.title" />
+        </div>,
+        <Button
+          key="company"
+          onClick={() =>
+            window.open("https://www.smart-reporting.com/", "_blank")
+          }
+          color="inherit"
+          sx={{ marginTop: 5 }}
+        >
+          <SmartReportingLogo sx={{ width: 300 }} />
+        </Button>,
+      ]}
+    >
+      <List>
+        <ListSubheader>{t("home.education.title")}</ListSubheader>
+        <Divider />
+        {[
+          {
+            title: t("home.education.computerScience.title"),
+            infoLine1: t("home.education.computerScience.info1"),
+            infoLine2: t("home.education.computerScience.info2"),
+            leftIcon: <UfmgLogo />,
+          },
+          {
+            title: t("home.education.electricalEngineering.title"),
+            infoLine1: t("home.education.electricalEngineering.info1"),
+            infoLine2: t("home.education.electricalEngineering.info2"),
+            leftIcon: <UfmgLogo />,
+          },
+        ].map((props) => (
+          <ContentItem {...props} key={props.title} />
+        ))}
+        <ListSubheader>{t("home.honorAndAward.title")}</ListSubheader>
+        <Divider />
+        {[
+          {
+            title: t("home.honorAndAward.featuredStudentAward.title"),
+            infoLine1: t("home.honorAndAward.featuredStudentAward.info1"),
+            infoLine2: t("home.honorAndAward.featuredStudentAward.info2"),
+            leftIcon: <UfmgLogo />,
+            rightIcon: <Star />,
+          },
+        ].map((props) => (
+          <ContentItem {...props} key={props.title} />
+        ))}
+      </List>
+    </Section>
+  );
+};

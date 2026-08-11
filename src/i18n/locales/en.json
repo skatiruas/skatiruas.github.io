@@ -1,0 +1,59 @@
+{
+  "home": {
+    "label": "Home",
+    "title": "Hello, I'm a <strong>Software Engineer</strong> currently working at:",
+    "education": {
+      "title": "Education",
+      "ufmg": "Federal University of Minas Gerais (UFMG)",
+      "computerScience": {
+        "title": "BSc in Computer Science",
+        "info1": "$t(home.education.ufmg)",
+        "info2": "1st Semester 2013 - 1st Semester 2015"
+      },
+      "electricalEngineering": {
+        "title": "Incomplete BEng in Electrical Engineering",
+        "info1": "$t(home.education.ufmg)",
+        "info2": "2nd Semester 2009 - 2nd Semester 2012"
+      }
+    },
+    "honorAndAward": {
+      "title": "Honors & Awards",
+      "featuredStudentAward": {
+        "title": "Featured Student Award",
+        "info1": "DCC, $t(home.education.ufmg)",
+        "info2": "3rd place in the 1st semester of 2015 - Computer Science"
+      }
+    }
+  },
+  "personal": {
+    "label": "Personal",
+    "title": "I'm also a <strong>Skateboarder</strong> who loves <strong>Photography</strong> and <strong>Music</strong>, and enjoys <strong>learning new skills</strong>.",
+    "cards": {
+      "snowboarding": "Snowboarding",
+      "wakeboarding": "Wakeboarding",
+      "music": "Music",
+      "skateboarding": "Skateboarding"
+    }
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Send me a message!",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "errors": {
+        "blankName": "Name can't be blank",
+        "blankEmail": "Email can't be blank",
+        "invalidEmail": "Email is invalid",
+        "blankMessage": "Message can't be blank",
+        "unknown": "Unknown error. Please try again."
+      },
+      "status": {
+        "sent": "The email has been sent",
+        "sending": "Sending...",
+        "idle": "Send"
+      }
+    }
+  }
+}

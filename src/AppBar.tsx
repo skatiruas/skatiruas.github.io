@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useMemo, useState } from "react";
 
-import { Link } from "react-scroll";
 import { Avatar, Button, IconButton, SvgIcon, styled } from "@mui/material";
+import { Link } from "./scroll";
 import GitHubIcon from "./assets/GitHubIcon";
 import GitLabIcon from "./assets/GitLabIcon";
 import LinkedInIcon from "./assets/LinkedInIcon";

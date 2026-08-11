@@ -29,9 +29,10 @@ export const useThemeMode = (): ThemeMode => {
   const [mode, setMode] = React.useState<"light" | "dark">(
     prefersDarkMode ? "dark" : "light"
   );
-  useEffect(() => setMode(prefersDarkMode ? "dark" : "light"), [
-    prefersDarkMode,
-  ]);
+  useEffect(
+    () => setMode(prefersDarkMode ? "dark" : "light"),
+    [prefersDarkMode]
+  );
 
   return [mode, setMode];
 };

@@ -54,7 +54,8 @@ export function Contact(): ReactElement {
         type={type}
         label={label}
         inputProps={{
-          onChange: (e) => handleChange(field, e.currentTarget.value),
+          onChange: (e: React.FormEvent<HTMLInputElement>) =>
+            handleChange(field, e.currentTarget.value),
         }}
         value={fields[field]}
         error={!!errors[field]}

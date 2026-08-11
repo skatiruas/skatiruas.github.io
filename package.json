@@ -15,11 +15,14 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "i18next": "^26.3.6",
+    "i18next-browser-languagedetector": "^8.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-i18next": "^17.0.11",
     "react-scripts": "^5.0.1",
     "react-scroll": "^1.7.4",
-    "typescript": "^4.1.2",
+    "typescript": "^5",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

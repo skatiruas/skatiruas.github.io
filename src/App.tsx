@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
-import { Element } from "react-scroll";
+import { Element } from "./scroll";
 import { AppBar, SectionLabel, sectionLabels } from "./AppBar";
 import { Home } from "./Home";
 import { Personal } from "./Personal";

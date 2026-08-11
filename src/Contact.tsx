@@ -2,6 +2,7 @@ import { ReactElement, useCallback, useMemo, useState } from "react";
 import { Section } from "./Section";
 import { Button, TextField } from "@mui/material";
 import { Email } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const validEmail = (email: string) =>
   /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
@@ -15,7 +16,7 @@ const emptyFields = {
 enum ContactStatus {
   Idle = "idle",
   Sending = "sending",
-  Sent = "Sent",
+  Sent = "sent",
 }
 
 interface ContactFields {
@@ -27,6 +28,7 @@ interface ContactFields {
 type ContactErrors = { [key in keyof ContactFields]?: string };
 
 export function Contact(): ReactElement {
+  const { t } = useTranslation();
   const [fields, setFields] = useState<ContactFields>({ ...emptyFields });
   const [errors, setErrors] = useState<ContactErrors>({});
   const [status, setStatus] = useState(ContactStatus.Idle);
@@ -74,14 +76,15 @@ export function Contact(): ReactElement {
   const validate = useCallback(() => {
     const { name, email, message } = fields;
     const errors: ContactErrors = {};
-    if (!name) errors["name"] = "Name can't be blank";
-    if (!email) errors["email"] = "Email can't be blank";
-    else if (!validEmail(email)) errors["email"] = "Email is invalid";
-    if (!message) errors["message"] = "Message can't be blank";
+    if (!name) errors["name"] = t("contact.form.errors.blankName");
+    if (!email) errors["email"] = t("contact.form.errors.blankEmail");
+    else if (!validEmail(email))
+      errors["email"] = t("contact.form.errors.invalidEmail");
+    if (!message) errors["message"] = t("contact.form.errors.blankMessage");
 
     setErrors(errors);
     return !Object.keys(errors).length;
-  }, [fields]);
+  }, [fields, t]);
 
   const onSend = useCallback(async () => {
     if (!validate()) return;
@@ -111,14 +114,14 @@ export function Contact(): ReactElement {
       setStatus(ContactStatus.Sent);
     } catch (e: unknown) {
       setErrors({
-        message: (e as ErrorEvent).message ?? "Unknown error, try again",
+        message: (e as ErrorEvent).message ?? t("contact.form.errors.unknown"),
       });
       setStatus(ContactStatus.Idle);
     }
-  }, [fields, validate]);
+  }, [fields, validate, t]);
 
   return (
-    <Section greetings={<div>Send me a message!</div>}>
+    <Section greetings={<div>{t("contact.title")}</div>}>
       <div
         style={{
           maxWidth: "500px",
@@ -127,9 +130,9 @@ export function Contact(): ReactElement {
           padding: "0 10px 10px 10px",
         }}
       >
-        {renderInput("text", "Name", "name")}
-        {renderInput("email", "Email", "email")}
-        {renderInput("text", "Message", "message", {
+        {renderInput("text", t("contact.form.name"), "name")}
+        {renderInput("email", t("contact.form.email"), "email")}
+        {renderInput("text", t("contact.form.message"), "message", {
           multiline: true,
           rows: 6,
         })}
@@ -143,11 +146,7 @@ export function Contact(): ReactElement {
           onClick={onSend}
           variant="contained"
         >
-          {status === ContactStatus.Sent
-            ? "The Email has been sent"
-            : status === ContactStatus.Sending
-            ? "Sending..."
-            : "Send"}
+          {t(`contact.form.status.${status}`)}
         </Button>
       </div>
     </Section>

@@ -3,16 +3,16 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { Element } from "./scroll";
-import { AppBar, SectionLabel, sectionLabels } from "./AppBar";
+import { AppBar, Section, sections } from "./AppBar";
 import { Home } from "./Home";
 import { Personal } from "./Personal";
 import { Contact } from "./Contact";
 import { ThemeModeContext, darkTheme, lightTheme, useThemeMode } from "./Theme";
 
-const sectionElements: { [key in SectionLabel]: ReactElement } = {
-  Home: <Home />,
-  Personal: <Personal />,
-  Contact: <Contact />,
+const sectionElements: { [key in Section]: ReactElement } = {
+  [Section.Home]: <Home />,
+  [Section.Personal]: <Personal />,
+  [Section.Contact]: <Contact />,
 };
 
 const AppWrapper = styled("div")(({ theme }) => ({
@@ -52,9 +52,9 @@ export function App(): ReactElement {
           }}
         >
           <AppBar ref={appBarRef} offset={offset} />
-          {sectionLabels.map((label) => (
-            <Element style={{ minHeight }} key={label} name={label}>
-              {sectionElements[label]}
+          {sections.map((section) => (
+            <Element style={{ minHeight }} key={section} name={section}>
+              {sectionElements[section]}
             </Element>
           ))}
         </AppWrapper>

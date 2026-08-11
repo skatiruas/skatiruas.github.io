@@ -1,6 +1,15 @@
 import React, { ReactElement, useCallback, useMemo, useState } from "react";
-
-import { Avatar, Button, IconButton, SvgIcon, styled } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  IconButton,
+  IconButtonProps,
+  ListItemText,
+  Menu,
+  MenuItem,
+  SvgIcon,
+  styled,
+} from "@mui/material";
 import { Link } from "./scroll";
 import GitHubIcon from "./assets/GitHubIcon";
 import GitLabIcon from "./assets/GitLabIcon";
@@ -8,6 +17,7 @@ import LinkedInIcon from "./assets/LinkedInIcon";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { ThemeModeContext } from "./Theme";
+import { useTranslation } from "react-i18next";
 
 const Wrapper = styled("div")(({ theme }) => ({
   display: "flex",
@@ -66,25 +76,42 @@ const AvatarWrapper = styled("div")({
   margin: "5px",
 });
 
-const OrbitBadge = styled("div")<{ angle: number; distance: number }>(
-  ({ angle, distance }) => ({
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(${-distance}px) rotate(${-angle}deg)`,
-  })
+const OrbitIconButton = ({
+  angle,
+  distance,
+  ...props
+}: {
+  angle: number;
+  distance: number;
+} & IconButtonProps) => (
+  <IconButton
+    color="inherit"
+    sx={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(${-distance}px) rotate(${-angle}deg)`,
+      width: 16,
+      height: 16,
+      border: "1px solid",
+      borderColor: "divider",
+      fontSize: 10,
+      fontWeight: "bold",
+    }}
+    {...props}
+  />
 );
 
-export enum SectionLabel {
-  Home = "Home",
-  Personal = "Personal",
-  Contact = "Contact",
+export enum Section {
+  Home = "home",
+  Personal = "personal",
+  Contact = "contact",
 }
 
-export const sectionLabels: ReadonlyArray<SectionLabel> = [
-  SectionLabel.Home,
-  SectionLabel.Personal,
-  SectionLabel.Contact,
+export const sections: ReadonlyArray<Section> = [
+  Section.Home,
+  Section.Personal,
+  Section.Contact,
 ];
 
 const IconLink = ({
@@ -107,38 +134,97 @@ const IconLink = ({
   );
 };
 
+const LANGUAGES = [
+  { code: "en", label: "EN", nativeLabel: "English" },
+  { code: "de", label: "DE", nativeLabel: "Deutsch" },
+  { code: "pt", label: "PT", nativeLabel: "Português" },
+];
+
+const LanguageSwitcher = () => {
+  const { i18n } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const current =
+    LANGUAGES.find((l) => l.code === i18n.resolvedLanguage) ?? LANGUAGES[1];
+
+  const handleOpen = (event: React.MouseEvent<HTMLElement>) =>
+    setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const handleSelect = (code: string) => () => {
+    i18n.changeLanguage(code);
+    handleClose();
+  };
+
+  return (
+    <>
+      <OrbitIconButton angle={-140} distance={70} onClick={handleOpen}>
+        {current.label}
+      </OrbitIconButton>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        {LANGUAGES.map(({ code, nativeLabel }) => (
+          <MenuItem
+            key={code}
+            selected={code === current.code}
+            onClick={handleSelect(code)}
+          >
+            <ListItemText>{nativeLabel}</ListItemText>
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+};
+
+const ThemeSwitcher = () => {
+  const [mode, setMode] = React.useContext(ThemeModeContext);
+
+  const isDark = mode === "dark";
+
+  return (
+    <OrbitIconButton
+      angle={40}
+      distance={70}
+      onClick={() => setMode(isDark ? "light" : "dark")}
+    >
+      {isDark ? (
+        <DarkModeIcon sx={{ width: "inherit", height: "inherit" }} />
+      ) : (
+        <LightModeIcon sx={{ width: "inherit", height: "inherit" }} />
+      )}
+    </OrbitIconButton>
+  );
+};
+
 export const AppBar = React.forwardRef(function AppBarRef(
   { offset }: { offset: number },
   ref: React.Ref<HTMLDivElement>
 ): ReactElement {
-  const [currentSectionLabel, setCurrentSectionLabel] = useState(
-    SectionLabel.Home
-  );
+  const [currentSection, setCurrentSection] = useState(Section.Home);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [mode, setMode] = React.useContext(ThemeModeContext);
+  const { t } = useTranslation();
 
   const onLinkActiveFor = useCallback(
-    (label: SectionLabel) => () => {
-      if (!isAnimating) setCurrentSectionLabel(label);
-      else if (label === currentSectionLabel) setIsAnimating(false);
+    (label: Section) => () => {
+      if (!isAnimating) setCurrentSection(label);
+      else if (label === currentSection) setIsAnimating(false);
     },
-    [currentSectionLabel, isAnimating]
+    [currentSection, isAnimating]
   );
 
   const onLinkClickFor = useCallback(
-    (label: SectionLabel) => () => {
-      setCurrentSectionLabel(label);
-      setIsAnimating(label !== currentSectionLabel);
+    (label: Section) => () => {
+      setCurrentSection(label);
+      setIsAnimating(label !== currentSection);
     },
-    [currentSectionLabel]
+    [currentSection]
   );
 
   const image = useMemo(
     () =>
       `${process.env.PUBLIC_URL}/profile${
-        currentSectionLabel === SectionLabel.Personal ? "-personal" : ""
+        currentSection === Section.Personal ? "-personal" : ""
       }.jpg`,
-    [currentSectionLabel]
+    [currentSection]
   );
 
   return (
@@ -171,44 +257,26 @@ export const AppBar = React.forwardRef(function AppBarRef(
             height: "120px !important",
           }}
         />
-        <OrbitBadge angle={40} distance={70}>
-          <IconButton
-            color="inherit"
-            onClick={() => setMode(mode === "dark" ? "light" : "dark")}
-            sx={{
-              width: 16,
-              height: 16,
-              bgcolor: "background.default",
-              border: "2px solid",
-              borderColor: "divider",
-              "&:hover": { bgcolor: "background.default" },
-            }}
-          >
-            {mode === "dark" ? (
-              <DarkModeIcon sx={{ width: "inherit", height: "inherit" }} />
-            ) : (
-              <LightModeIcon sx={{ width: "inherit", height: "inherit" }} />
-            )}
-          </IconButton>
-        </OrbitBadge>
+        <ThemeSwitcher />
+        <LanguageSwitcher />
       </AvatarWrapper>
       <Buttons>
-        {sectionLabels.map((label) => (
+        {sections.map((section) => (
           <Link
-            to={label}
+            to={section}
             spy
             smooth
             duration={500}
-            key={label}
+            key={section}
             offset={-offset}
-            onSetActive={onLinkActiveFor(label)}
+            onSetActive={onLinkActiveFor(section)}
           >
             <Button
-              disabled={currentSectionLabel === label}
-              onClick={onLinkClickFor(label)}
+              disabled={currentSection === section}
+              onClick={onLinkClickFor(section)}
               color="inherit"
             >
-              {label}
+              {t(`${section}.label`)}
             </Button>
           </Link>
         ))}

@@ -10,13 +10,15 @@ const Mp4Card = ({ title }: { title: string }) => {
       sx={{
         width: "100%",
         maxWidth: "360px",
-        maxHeight: "calc(100dvh - var(--header-offset) - 16px)",
         margin: "10px",
         display: "grid",
       }}
     >
       <CardMedia
         sx={{
+          width: "100%",
+          maxHeight: "calc(100dvh - var(--header-offset) - 64px)",
+          backgroundColor: "#000",
           flex: "1 1 auto",
           minHeight: 0,
           overflow: "hidden",
@@ -56,7 +58,7 @@ const Mp4Card = ({ title }: { title: string }) => {
           }}
         />
       </CardMedia>
-      <CardContent>
+      <CardContent style={{ padding: 8 }}>
         <Typography
           gutterBottom
           variant="h5"
